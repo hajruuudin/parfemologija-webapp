@@ -10,13 +10,10 @@ import java.io.Serializable;
 @Data
 @Schema(description = "Schema of a default Sample Model Update request with its properties")
 public class SampleUpdateRequest implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     @NotNull
     @Schema(description = "Unique identifier of the Sample")
     private Long id;
 
     @Schema(description = "Name of the sample")
-    private String name;
+    private String sampleName;
 }

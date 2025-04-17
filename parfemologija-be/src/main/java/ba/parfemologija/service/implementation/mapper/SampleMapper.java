@@ -1,26 +1,21 @@
 package ba.parfemologija.service.implementation.mapper;
 
-import ba.parfemologija.dao.model.SampleEntity;
+import ba.parfemologija.dao.entities.SampleEntity;
+import ba.parfemologija.service.core.models.sample.SampleCreateRequest;
 import ba.parfemologija.service.core.models.sample.SampleModel;
-import jakarta.persistence.MappedSuperclass;
+import ba.parfemologija.service.core.models.sample.SampleUpdateRequest;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mapstruct.MappingTarget;
 
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface SampleMapper {
+    SampleModel entityToDto(SampleEntity entity); // Usually u use this one when getting something by id
 
-    Logger LOGGER = LoggerFactory.getLogger(SampleMapper.class);
+    SampleEntity dtoToEntity(SampleCreateRequest model); // Usually u use this one when making a new entity
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    default SampleModel entityToDto(SampleEntity entity) {
-        SampleModel model = new SampleModel();
-        model.setId(entity.getId());
-        model.setName(entity.getName());
-        LOGGER.info("Mapped SampleModel: {}", model); // Add this line
-        return model;
-    }
+    List<SampleModel> entitiesToDtos(List<SampleEntity> entities); // Usually u use this one when getting all records
+
+    void updateEntity(SampleUpdateRequest request, @MappingTarget SampleEntity sampleEntity); // This one when updating
 }
