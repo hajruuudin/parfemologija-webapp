@@ -1,2 +1,81 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
+
+.kumbh-sans-regular {
+    font-family: "Kumbh Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "YOPQ" 300;
+}
+
+.italianno-regular {
+    font-family: "Italianno", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+@theme{
+    --text-50: #0b0c0f;
+  --text-100: #16171d;
+  --text-200: #2c2e3a;
+  --text-300: #424557;
+  --text-400: #585c74;
+  --text-500: #6e7491;
+  --text-600: #8b8fa7;
+  --text-700: #a8abbd;
+  --text-800: #c5c7d3;
+  --text-900: #e2e3e9;
+  --text-950: #f0f1f4;
+
+  --background-50: #0b0b0e;
+  --background-100: #17171c;
+  --background-200: #2e2e38;
+  --background-300: #454554;
+  --background-400: #5c5c70;
+  --background-500: #73738c;
+  --background-600: #8f8fa3;
+  --background-700: #ababba;
+  --background-800: #c7c7d1;
+  --background-900: #e3e3e8;
+  --background-950: #f1f1f4;
+
+  --primary-50: #0b0b0f;
+  --primary-100: #16171d;
+  --primary-200: #2c2d3a;
+  --primary-300: #424457;
+  --primary-400: #585b74;
+  --primary-500: #6e7191;
+  --primary-600: #8b8ea7;
+  --primary-700: #a8aabd;
+  --primary-800: #c5c6d3;
+  --primary-900: #e2e3e9;
+  --primary-950: #f0f1f4;
+
+  --secondary-50: #0f0b0c;
+  --secondary-100: #1d1618;
+  --secondary-200: #3a2c30;
+  --secondary-300: #574248;
+  --secondary-400: #74585f;
+  --secondary-500: #916e77;
+  --secondary-600: #a78b92;
+  --secondary-700: #bda8ae;
+  --secondary-800: #d3c5c9;
+  --secondary-900: #e9e2e4;
+  --secondary-950: #f4f0f1;
+
+  --accent-50: #0f0c0b;
+  --accent-100: #1d1816;
+  --accent-200: #3a312c;
+  --accent-300: #574942;
+  --accent-400: #746258;
+  --accent-500: #917a6e;
+  --accent-600: #a7958b;
+  --accent-700: #bdafa8;
+  --accent-800: #d3cac5;
+  --accent-900: #e9e4e2;
+  --accent-950: #f4f2f0;
+
+}
