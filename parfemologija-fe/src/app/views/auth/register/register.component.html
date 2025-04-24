@@ -1,0 +1,71 @@
+<div class='flex flex-row justify-center items-center h-full'>
+    <div id="form-section" class="w-1/2 h-full m-5 flex flex-col justify-around items-center">
+        <form [formGroup]="this.registerForm" class="flex flex-col items-center w-full">
+            <h1 class="font-bold text-3xl text-center">Register</h1>
+            <div class="w-full flex flex-row mt-5">
+                <input 
+                class="w-full h-12 border-2 border-r-0 rounded-tl-2xl p-2 focus-visible:outline-0 transition-all" 
+                type="text" 
+                name="firstName" 
+                id="firstName"
+                placeholder="First Name"
+                formControlName="name">
+
+                <input 
+                class="w-full h-12 border-2 rounded-tr-2xl p-2 focus-visible:outline-0 transition-all" 
+                type="text" 
+                name="lastName" 
+                id="lastName"
+                placeholder="Last Name"
+                formControlName="surname">
+            </div>
+
+            <input 
+            class="w-full h-12 border-2 border-t-0 border-b-2 p-2 focus-visible:outline-0 transition-all" 
+            type="email" 
+            name="email" 
+            id="email"
+            placeholder="Email"
+            formControlName="email">
+
+            <input 
+            class="w-full h-12 border-2 border-t-0 border-b-2 p-2 focus-visible:outline-0 transition-all" 
+            type="text" 
+            name="number" 
+            id="number"
+            placeholder="Phone"
+            formControlName="phone">
+
+            <input 
+            class="w-full h-12 border-2 border-t-0 border-b-0 p-2 focus-visible:outline-0 transition-all" 
+            type="text" 
+            name="location" 
+            id="location"
+            placeholder="Location"
+            formControlName="location">
+
+            <div class="w-full flex flex-row mb-5">
+                <input 
+                class="w-full h-12 border-2 rounded-bl-2xl p-2 focus-visible:outline-0 transition-all" 
+                type="password" 
+                name="password"
+                id="password"
+                placeholder="Password"
+                formControlName="password">
+
+                <input 
+                class="w-full h-12 border-2 border-l-0 rounded-br-2xl p-2 focus-visible:outline-0 transition-all" 
+                type="password" 
+                name="repeatPassword" 
+                id="repeatPassword"
+                placeholder="Repeat Password"
+                formControlName="repeatPassword">
+            </div>
+
+            <button type="submit" class="bg-(--accent-500) border-2 border-(--accent-700) px-5 py-1 rounded-xl text-lg">Register</button>
+            <h2 class="font-bold text-xl text-center">Alreadt have an account? <a routerLink="/auth/login">Login</a></h2>
+        </form>
+    </div>
+    <div id="logo-section" class="w-1/2 h-full rounded-2xl rounded-l-4xl hidden md:inline" style="background-image: url('/assets/images/authbg.jpg'); background-size: cover;">
+    </div>
+</div>
