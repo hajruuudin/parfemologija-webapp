@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import {  HttpHandlerFn, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptorService } from './controller/auth-interceptor.service';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
       (req, next: HttpHandlerFn) => inject(AuthInterceptorService).intercept(req, {
         handle: (internalReq) => next(internalReq)
       })
-    ]))
+    ])),
+    provideAnimationsAsync()
   ]
 };

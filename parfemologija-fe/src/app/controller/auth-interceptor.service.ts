@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Router } from 'express';
+import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
 /**
@@ -29,7 +29,7 @@ export class AuthInterceptorService implements HttpInterceptor{
         (error: any) => {
           if (error instanceof HttpErrorResponse){
             if (error.status === 401){
-              this.router.redirect(['/auth'])
+              this.router.navigate(['/auth'])
             }
           }
         }
