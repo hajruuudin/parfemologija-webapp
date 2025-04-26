@@ -11,7 +11,7 @@ import { filter, map } from 'rxjs';
   host: {
     class: 'w-full h-full flex justify-center items-center'
   },
-  animations: [
+  animations: [ // Ni ovo ne radi
     trigger('routeAnimations', [
       transition(':enter', [
         style({ opacity: 0 }),

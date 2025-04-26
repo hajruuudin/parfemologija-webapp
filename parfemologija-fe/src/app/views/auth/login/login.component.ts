@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../controller/auth.service';
+import { UserLogin } from '../../../model/user-model';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +18,38 @@ export class LoginComponent implements OnInit{
   loginForm! : FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
+
+  onLoginSubmit(){
+    if (this.loginForm.valid) {
+      let userLogin : UserLogin = new UserLogin(
+        this.loginForm.get('username')?.value,
+        this.loginForm.get('password')?.value
+      )
+
+      this.authService.login(userLogin).subscribe({
+        next: (response: any) => {
+          this.router.navigate(['/'])
+        },
+        error: (error: Error) => {
+          this.toastr.error('Login error!')
+        }
+      })
+    } else {
+      this.toastr.error("Please fill in the form!")
+    }
+  }
+
+
 }
