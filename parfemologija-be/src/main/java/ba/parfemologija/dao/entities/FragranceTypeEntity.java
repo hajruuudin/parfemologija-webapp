@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "pf_accord")
+@Table(name = "pf_fragrance_type")
 public class FragranceTypeEntity implements Serializable {
 
     @Id

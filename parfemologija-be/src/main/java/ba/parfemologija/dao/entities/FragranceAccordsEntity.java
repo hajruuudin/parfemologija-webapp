@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "pf_accord")
+@Table(name = "pf_fragrance_accords")
 public class FragranceAccordsEntity implements Serializable {
 
     @Id
