@@ -4,10 +4,13 @@ import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserCreate, UserModel } from '../../../model/user-model';
 import { AuthService } from '../../../controller/auth.service';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
+import { response } from 'express';
+import { error } from 'console';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, NgxSpinnerComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
   host: {
@@ -21,7 +24,8 @@ export class RegisterComponent implements OnInit{
     private fb: FormBuilder,
     private toastr: ToastrService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -57,27 +61,43 @@ export class RegisterComponent implements OnInit{
         return;
       }
 
-      let registeredUser : UserCreate = new UserCreate(
-        this.registerForm.get('username')?.value,
-        this.registerForm.get('name')?.value,
-        this.registerForm.get('surname')?.value,
-        this.registerForm.get('email')?.value,
-        this.registerForm.get('password')?.value,
-        this.registerForm.get('location')?.value,
-        this.registerForm.get('phone')?.value
-      )
-      console.log(registeredUser)
-
-      this.authService.register(registeredUser).subscribe({
-        next: (request : any) => {
-          this.router.navigate(['/auth/login'])
+      this.spinner.show()
+      this.authService.checkUsername(this.registerForm.get('username')?.value).subscribe({
+        next: (response : any) => {
+          if(!response['status']){
+            let registeredUser : UserCreate = new UserCreate(
+              this.registerForm.get('username')?.value,
+              this.registerForm.get('name')?.value,
+              this.registerForm.get('surname')?.value,
+              this.registerForm.get('email')?.value,
+              this.registerForm.get('password')?.value,
+              this.registerForm.get('location')?.value,
+              this.registerForm.get('phone')?.value
+            )
+            console.log(registeredUser)
+      
+            this.authService.register(registeredUser).subscribe({
+              next: (request : any) => {
+                this.spinner.hide()
+                this.router.navigate(['/auth/login'])
+              },
+              error: (error : Error) => {
+                this.spinner.hide()
+                this.toastr.error('There was an error while registering. Please try again later!');
+                console.error(error)
+              }
+            })
+          } else {
+            this.spinner.hide()
+            this.toastr.error('Username already taken!')
+          }
         },
-        error: (error : Error) => {
-          this.toastr.error('There was an error while registering. Please try again later!');
-          console.error(error)
+        error: (error: Error) => {
+          this.spinner.hide()
+          this.toastr.show("Internal server error")
+          console.error(error);
         }
       })
-      
     } else {
       this.toastr.error('Please fill in the form');
     }

@@ -1,4 +1,4 @@
-import { ApplicationConfig, inject, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, inject, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideToastr } from 'ngx-toastr';
 
@@ -7,6 +7,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import {  HttpHandlerFn, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptorService } from './controller/auth-interceptor.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
+import { provideSpinnerConfig, NgxSpinnerModule } from 'ngx-spinner'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
       })
     ])),
     provideAnimationsAsync(),
-    provideToastr()
+    provideToastr(),
+    importProvidersFrom(NgxSpinnerModule.forRoot())
   ]
 };

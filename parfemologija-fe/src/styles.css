@@ -78,4 +78,21 @@
   --accent-900: #e9e4e2;
   --accent-950: #f4f2f0;
 
+  --animate-rotate: rotate 15s ease-in-out infinite;
+
+  @keyframes rotate {
+    25% {
+      transform: rotate(-10deg);
+    },
+    50% {
+      transform: rotate(0deg);
+    },
+    75% {
+      transform: rotate(10deg);
+    },
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
 }

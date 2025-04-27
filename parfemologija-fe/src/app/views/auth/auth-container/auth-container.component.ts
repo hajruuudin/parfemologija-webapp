@@ -9,49 +9,25 @@ import { filter, map } from 'rxjs';
   templateUrl: './auth-container.component.html',
   styleUrl: './auth-container.component.css',
   host: {
-    class: 'w-full h-full flex justify-center items-center'
-  },
-  animations: [ // Ni ovo ne radi
-    trigger('routeAnimations', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms ease-in', style({ opacity: 1 }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-out', style({ opacity: 0 }))
-      ])
-    ])
-  ]
+    class: 'w-full h-full flex justify-center items-center overflow-hidden'
+  }
 })
 export class AuthContainerComponent {
-  animationState: string = '';
 
-  constructor(private router: Router) {
-    this.router.events.pipe(
-      filter(event => event instanceof ActivationEnd),
-      map(event => (event as ActivationEnd).snapshot.data['animation'])
-    ).subscribe(data => {
-      this.animationState = data || '';
-    });
-  }
-
-  prepareRoute(outlet: RouterOutlet) {
-    return this.animationState; // Directly return the component's state
-  }
   // Ne radi djavo:
-  // @ViewChild('backgroundImage') backgroundImage : ElementRef | null = null;
+  @ViewChild('backgroundImage') backgroundImage : ElementRef | null = null;
 
-  // @HostListener('mousemove', ['$event'])
-  // onMouseMove(event: MouseEvent) {
-  //   if (this.backgroundImage) {
-  //     const x = event.clientX;
-  //     const y = event.clientY;
-  //     const speed = 0.01;
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (this.backgroundImage) {
+      const x = event.clientX;
+      const y = event.clientY;
+      const speed = 0.02;
 
-  //     const moveX = (x - window.innerWidth / 2) * speed;
-  //     const moveY = (y - window.innerHeight / 2) * speed;
+      const moveX = (x - window.innerWidth / 2) * speed;
+      const moveY = (y - window.innerHeight / 2) * speed;
 
-  //     this.backgroundImage.nativeElement.style.transform = `translate(${moveX}px, ${moveY}px)`;
-  //   }
-  // }
+      this.backgroundImage.nativeElement.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    }
+  }
 }

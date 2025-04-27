@@ -15,4 +15,8 @@ export class AuthService {
   login(request : UserLogin){
     return this.http.post('/api/auth/login', request, { /* No Options */ })
   }
+
+  checkUsername(request : String){
+    return this.http.get(`/api/auth/check/${request}`)
+  }
 }

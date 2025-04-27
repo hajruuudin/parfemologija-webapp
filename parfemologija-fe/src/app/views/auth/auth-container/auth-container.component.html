@@ -1,4 +1,5 @@
-<section id="auth-container" class="w-full h-full flex justify-center items-center" style="background-image: url('/assets/images/authfullbg.png'); background-size: cover;">
-  <router-outlet #outlet="outlet" [@routeAnimations]="animationState"></router-outlet>
+<section id="auth-container" class="w-full h-full flex justify-center items-center relative">
+  <img id="backgroundImage" #backgroundImage src="/assets/images/authfullbg.png" alt="bg" class="absolute w-screen scale-110 -z-10 animate-rotate">
+  <router-outlet #outlet="outlet"></router-outlet>
 </section>
 
