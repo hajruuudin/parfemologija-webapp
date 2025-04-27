@@ -11,4 +11,5 @@ import java.util.Map;
 public interface AuthService {
     UserModel register(UserCreate userCreateRequest) throws Exception;
     ResponseEntity<Map<String, Object>> login (UserLogin userLoginRequest, HttpServletResponse servletResponse) throws Exception;
+    ResponseEntity<Map<String, Object>> checkUsername(String username);
 }

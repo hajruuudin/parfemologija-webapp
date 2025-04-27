@@ -71,6 +71,17 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    @Override
+    public ResponseEntity<Map<String, Object>> checkUsername(String username) {
+        UserEntity registeredUser = userDAO.findByUsername(username);
+
+        if(registeredUser == null){
+            return ResponseEntity.ok(Map.of("status", false));
+        } else {
+            return ResponseEntity.ok(Map.of("status", true));
+        }
+    }
+
     private void setJwtCookie(HttpServletResponse response, String token) {
         Cookie jwtCookie = new Cookie(JWT_COOKIE_NAME, token);
         jwtCookie.setHttpOnly(true);

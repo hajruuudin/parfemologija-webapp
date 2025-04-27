@@ -34,12 +34,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             roles.add("USER");
         }
 
-
+        String detailUsername = user.getUsername();
         String detailPassword = user.getPassword();
-        String detailEmail = user.getEmail();
 
         return new User(
-                detailEmail,
+                detailUsername,
                 detailPassword,
                 roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role)).collect(Collectors.toList()));
     }
