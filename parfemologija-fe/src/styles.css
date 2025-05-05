@@ -17,6 +17,10 @@
     font-style: normal;
   }
 
+.max-body-width {
+  max-width: 1366px;
+}
+
 @theme{
     --text-50: #0b0c0f;
   --text-100: #16171d;

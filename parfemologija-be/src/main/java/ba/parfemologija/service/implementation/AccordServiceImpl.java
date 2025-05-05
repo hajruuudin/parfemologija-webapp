@@ -12,11 +12,13 @@ import org.apache.logging.log4j.util.InternalException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -53,18 +55,40 @@ public class AccordServiceImpl implements AccordService {
 
             return ResponseEntity.ok(accordMapper.entityToDto(accordEntity));
         } catch (Exception e){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Accord creation error");
         }
 
     }
 
     @Override
     public ResponseEntity<AccordModel> update(AccordUpdate update) {
-        return null;
+        try {
+            Optional<AccordEntity> existingEntityOptional = accordDAO.findById(update.getId());
+            if (!existingEntityOptional.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            AccordEntity existingEntity = existingEntityOptional.get();
+
+            accordMapper.update(update, existingEntity);
+
+            AccordEntity updatedEntity = accordDAO.save(existingEntity);
+            AccordModel updatedModel = accordMapper.entityToDto(updatedEntity);
+            return ResponseEntity.ok(updatedModel);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @Override
     public ResponseEntity<Boolean> deleteById(Long id) {
-        return null;
+        try{
+            accordDAO.deleteById(id);
+
+            return ResponseEntity.ok(true);
+        } catch (Exception e){
+            return ResponseEntity.status(400).body(false);
+        }
     }
 }
