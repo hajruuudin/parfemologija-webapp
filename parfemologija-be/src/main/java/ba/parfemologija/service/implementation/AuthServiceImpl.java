@@ -87,8 +87,17 @@ public class AuthServiceImpl implements AuthService {
         jwtCookie.setHttpOnly(true);
         jwtCookie.setMaxAge(JWT_COOKIE_MAX_AGE_SECONDS);
         jwtCookie.setPath("/");
-        // jwtCookie.setSecure(true); ako se odlucim za HTTPS kasnije
-        response.addCookie(jwtCookie);
+
+        String appEnv = System.getenv("APP_ENVIRONMENT");
+        System.out.println(appEnv);
+        StringBuilder cookieHeader = new StringBuilder(jwtCookie.getName() + "=" + jwtCookie.getValue() + "; Path=" + jwtCookie.getPath() + "; HttpOnly");
+
+        if ("production".equals(appEnv)) {
+            cookieHeader.append("; Secure");
+            cookieHeader.append("; SameSite=None");
+        }
+
+        response.setHeader("Set-Cookie", cookieHeader.toString());
     }
 
 }

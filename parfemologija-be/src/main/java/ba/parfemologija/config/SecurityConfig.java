@@ -73,12 +73,19 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200"));
+        corsConfiguration.setAllowedOrigins(List.of(
+                "http://localhost:4200",
+                "https://parfemologija.onrender.com"
+        ));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Content-type", "Accept", "Authorisation"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList(
+                "Origin", "Content-Type", "Accept", "Authorization"
+        ));
         corsConfiguration.setAllowCredentials(true);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration); // For all routes
+        source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
+
 }
