@@ -44,7 +44,9 @@ export class LoginComponent implements OnInit{
       this.authService.login(userLogin).subscribe({
         next: (response: any) => {
           this.spinner.hide()
-          this.router.navigate(['/'])
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 100); 
 
         },
         error: (error: Error) => {
