@@ -3,23 +3,22 @@ package ba.parfemologija.service.implementation.mapper;
 import ba.parfemologija.dao.entities.UserEntity;
 import ba.parfemologija.service.core.models.user.UserCreate;
 import ba.parfemologija.service.core.models.user.UserModel;
+import ba.parfemologija.service.core.models.user.UserUpdate;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    /**
-     * Maps a {@link UserEntity} to a corresponding {@link UserModel} to be retrieved from the database.
-     *
-     * @return The user selected from the database.
-     */
-    UserModel entityToDto(UserEntity entity);
 
-    /**
-     * Maps a {@link UserCreate} to a corresponding {@link UserEntity} to be stored within the database.
-     * ID, isAdmin and joinedAt are all added within the service. The rest of the fields should be
-     * provided via a form.
-     *
-     * @return The newly generated user from the database.
-     */
-    UserEntity dtoToEntity(UserCreate model);
+    // 1-to-1 mappings
+    UserModel   entityToDto(UserEntity entity);
+    UserEntity  dtoToEntity(UserCreate create);
+
+    // 1) map a list of entities to DTOs
+    List<UserModel> entitiesToDtos(List<UserEntity> entities);
+
+    // 2) apply an update DTO onto an existing entity
+    void update(UserUpdate update, @MappingTarget UserEntity entity);
 }
