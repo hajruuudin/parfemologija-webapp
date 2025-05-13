@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
-// ACCORD: This just serves as a collection of different fragrance accords, similar to how it's done on Fragrantica
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
