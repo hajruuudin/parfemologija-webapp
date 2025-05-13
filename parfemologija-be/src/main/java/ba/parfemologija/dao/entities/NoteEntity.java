@@ -1,3 +1,5 @@
+// 1) Entity
+// src/main/java/ba/parfemologija/dao/entities/NoteEntity.java
 package ba.parfemologija.dao.entities;
 
 import jakarta.persistence.*;
@@ -19,6 +21,12 @@ public class NoteEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    //Other columns
-}
+    @Column(name = "slug", length = 255)
+    private String slug;
 
+    @Column(name = "name", length = 255)
+    private String name;
+
+    @Column(name = "description", columnDefinition = "text")
+    private String description;
+}
