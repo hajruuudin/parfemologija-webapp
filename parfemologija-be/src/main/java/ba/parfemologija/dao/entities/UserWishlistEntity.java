@@ -1,3 +1,4 @@
+// src/main/java/ba/parfemologija/dao/entities/UserWishlistEntity.java
 package ba.parfemologija.dao.entities;
 
 import jakarta.persistence.*;
@@ -6,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +21,15 @@ public class UserWishlistEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    //Other columns
-}
+    @Column(name = "list_name", length = 255)
+    private String listName;
 
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
+
+    @Column(name = "user_id")
+    private Long userId;
+}
