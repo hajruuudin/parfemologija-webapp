@@ -43,4 +43,7 @@ public class ArticleModel implements Serializable {
 
     @Schema(description = "Price of the article")
     private BigDecimal articlePrice;
+
+    @Schema(description = "Thumbnail Image URL of the article")
+    private String thumbnailImageUrl;
 }

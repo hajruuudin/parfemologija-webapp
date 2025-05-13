@@ -62,4 +62,7 @@ public class FragranceModel implements Serializable {
 
     @Schema(description = "Gender category of the fragrance")
     private String gender;
+
+    @Schema(description = "Thumbnail Image URL of the fragrance")
+    private String thumbnailImageUrl;
 }

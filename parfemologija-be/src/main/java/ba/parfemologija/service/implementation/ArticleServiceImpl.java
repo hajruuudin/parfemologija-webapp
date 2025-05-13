@@ -2,11 +2,13 @@ package ba.parfemologija.service.implementation;
 
 import ba.parfemologija.dao.ArticleDAO;
 import ba.parfemologija.dao.entities.ArticleEntity;
+import ba.parfemologija.service.core.LookupImageService;
 import ba.parfemologija.service.core.models.ArticleService;
 import ba.parfemologija.service.core.models.article.ArticleCreateRequest;
 import ba.parfemologija.service.core.models.article.ArticleModel;
 import ba.parfemologija.service.core.models.article.ArticleUpdateRequest;
 import ba.parfemologija.service.implementation.mapper.ArticleMapper;
+import ba.parfemologija.utils.ObjectType;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +26,7 @@ import java.util.Optional;
 public class ArticleServiceImpl implements ArticleService {
     ArticleDAO articleDAO;
     ArticleMapper articleMapper;
+    LookupImageService lookupImageService;
 
     @Override
     public ResponseEntity<Page<ArticleModel>> find(PageRequest request) {
@@ -31,6 +34,10 @@ public class ArticleServiceImpl implements ArticleService {
             Page<ArticleEntity> pagedArticleResponse = articleDAO.findAll(request);
 
             List<ArticleModel> articleModelList = articleMapper.entitiesToDtos(pagedArticleResponse.getContent());
+
+            for(ArticleModel articleModel : articleModelList){
+                lookupImageService.lookupThumbnailImage(articleModel, ObjectType.ARTICLE, articleModel.getId());
+            }
 
             Page<ArticleModel> articleResponse = new PageImpl<>(
                     articleModelList,

@@ -1,5 +1,6 @@
 package ba.parfemologija.dao.entities;
 
+import ba.parfemologija.utils.ObjectType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,12 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-// This is the table where the images are actually kept. For example:
-// media_category - this should be values like ARTICLE or FRAGRANCE, since on this project only fragrances and articles have images
-// object_id - the object this media is associated
-// image_url - the actual media url
-// Basically, it's only purpose is to not have images stored with every main table, but to have one dedicated table for media
-// Images will be stored on some random ahh server online, well figure it out
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,6 +20,17 @@ public class MediaEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    //Other columns
+    @Column(name = "media_category")
+    @Enumerated(EnumType.STRING)
+    private ObjectType mediaCategory;
+
+    @Column(name = "object_id")
+    private Long objectId;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @Column(name = "is_thumbnail")
+    private Boolean isThumbnail;
 }
 

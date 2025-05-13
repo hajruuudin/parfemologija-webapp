@@ -3,10 +3,12 @@ package ba.parfemologija.service.implementation;
 import ba.parfemologija.dao.FragranceDAO;
 import ba.parfemologija.dao.entities.FragranceEntity;
 import ba.parfemologija.service.core.FragranceService;
+import ba.parfemologija.service.core.LookupImageService;
 import ba.parfemologija.service.core.models.fragrance.FragranceCreateRequest;
 import ba.parfemologija.service.core.models.fragrance.FragranceModel;
 import ba.parfemologija.service.core.models.fragrance.FragranceUpdateRequest;
 import ba.parfemologija.service.implementation.mapper.FragranceMapper;
+import ba.parfemologija.utils.ObjectType;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +26,7 @@ import java.util.Optional;
 public class FragranceServiceImpl implements FragranceService {
     FragranceDAO fragranceDAO;
     FragranceMapper fragranceMapper;
+    LookupImageService lookupImageService;
 
     @Override
     public ResponseEntity<Page<FragranceModel>> find(PageRequest request) {
@@ -31,6 +34,10 @@ public class FragranceServiceImpl implements FragranceService {
             Page<FragranceEntity> pagedFragranceResponse = fragranceDAO.findAll(request);
 
             List<FragranceModel> fragranceModelList = fragranceMapper.entitiesToDtos(pagedFragranceResponse.getContent());
+
+            for(FragranceModel fragranceModel : fragranceModelList){
+                lookupImageService.lookupThumbnailImage(fragranceModel, ObjectType.FRAGRANCE, fragranceModel.getId());
+            }
 
             Page<FragranceModel> fragranceResponse = new PageImpl<>(
                     fragranceModelList,
