@@ -14,21 +14,21 @@ export class AuthService {
   register(request : UserCreate){
     console.log(this.apiUrl)
     return this.http.post(`${this.apiUrl}/auth/register`, request, {
-      withCredentials: true
+      // withCredentials: true
     })
   }
 
   login(request : UserLogin){
     console.log(this.apiUrl)
     return this.http.post(`${this.apiUrl}/auth/login`, request, {
-      withCredentials: true
+      // withCredentials: true
     })
   }
 
   checkUsername(request : String){
     console.log(this.apiUrl)
     return this.http.get(`${this.apiUrl}/auth/check/${request}`, {
-      withCredentials: true
+      // withCredentials: true
     })
   }
 }

@@ -1,1 +1,14 @@
-<p>homepage works!</p>
+<app-headline [title]="'Homepage'"></app-headline>
+
+<section class="homepage-body-container text-center">
+    <p class="text-2xl">WIP: This page will have the following:</p>
+
+    <ul class="text-xl">
+        <li>- A section for the most recent fragrance selling articles posted</li>
+        <li>- A section for a random assortmant of fragrances from the database</li>
+        <li>- A right sidebar section for recent fragrance reviews</li>
+        <li>- A left sidebar section for the users collections if he has any (two at most)</li>
+    </ul>
+    
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-pulse" [fullScreen] = "true"><p style="color: white" > Loading.. </p></ngx-spinner>
+</section>

@@ -1,1 +1,18 @@
-<p>browse-fragrances works!</p>
+<app-headline [title]="'Browse Fragrances'"></app-headline>
+
+<section class="w-full flex flex-row space-x-4">
+    <aside class="w-3/12 h-auto flex flex-col justify-start items-center bg-(--primary-200) rounded-2xl p-2 mt-4">
+        <h2 class="text-2xl font-bold">Filters</h2>
+    </aside>
+
+    <section class="w-9/12 flex flex-col justify-start items-center">
+    <app-search-bar
+        class="w-full"
+    >
+    </app-search-bar>
+
+    <div id="search-result-container">
+        
+    </div>
+    </section>
+</section>

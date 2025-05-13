@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/parfemologija-api/public/**","/swagger-ui/**", "/v3/api-docs/**", "/parfemologija-api/**", "/auth/register" , "/auth/login", "/auth/check/")
+                        auth.requestMatchers("/parfemologija-api/public/**","/swagger-ui/**", "/v3/api-docs/**", "/parfemologija-api/**", "/auth/register" , "/auth/login", "/auth/check/**")
                                 .permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/**").authenticated()

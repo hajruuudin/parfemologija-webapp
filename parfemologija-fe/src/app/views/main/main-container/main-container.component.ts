@@ -9,7 +9,7 @@ import { NgIf } from '@angular/common';
   templateUrl: './main-container.component.html',
   styleUrl: './main-container.component.css',
   host: {
-    class: 'w-full h-screen flex-col justify-start items-center relative'
+    class: 'w-full h-screen flex-col justify-center items-center relative'
   }
 })
 export class MainContainerComponent {
