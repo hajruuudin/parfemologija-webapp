@@ -16,6 +16,7 @@ export class FragranceModel{
     public createdAt: Date,
     public modifiedBy: string,
     public modifiedAt: Date,
-    public gender: string
+    public gender: string,
+    public thumbnailImageUrl: string,
   ) {}
 }
