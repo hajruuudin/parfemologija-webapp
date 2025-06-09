@@ -1,18 +1,22 @@
 <app-headline [title]="'Browse Fragrances'"></app-headline>
 
-<section class="w-full flex flex-row space-x-4">
-    <aside class="w-3/12 h-auto flex flex-col justify-start items-center bg-(--primary-200) rounded-2xl p-2 mt-4">
+<section class="w-full h-auto flex flex-row space-x-4">
+    <aside class="hidden md:flex w-3/12 h-64 flex-col justify-start items-center bg-(--primary-200) rounded-2xl p-2 mt-4">
         <h2 class="text-2xl font-bold">Filters</h2>
     </aside>
 
-    <section class="w-9/12 flex flex-col justify-start items-center">
-    <app-search-bar
-        class="w-full"
-    >
-    </app-search-bar>
+    <section class="w-full md:w-9/12 flex flex-col justify-start items-center">
+        <app-search-bar
+            class="w-full"
+        >
+        </app-search-bar>
 
-    <div id="search-result-container">
-        
-    </div>
+        <div id="search-result-container" class="w-full h-auto flex flex-wrap">
+            <app-fragrance-card *ngFor="let fragrance of this.searchResult"
+                [fragrance]="fragrance"
+            ></app-fragrance-card>
+        </div>
     </section>
 </section>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-pulse" [fullScreen] = "true"><p style="color: white" > Loading.. </p></ngx-spinner>
