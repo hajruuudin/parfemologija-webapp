@@ -38,7 +38,7 @@ public class LookupImagesService implements LookupImageService {
             // Optionally handle the case where no image is found
             try {
                 Method setImageURLMethod = objectModel.getClass().getMethod("setThumbnailImageUrl", String.class);
-                setImageURLMethod.invoke(objectModel, "/assets/object-images/default.jpg"); // Or a default URL
+                setImageURLMethod.invoke(objectModel, "https://i.imgur.com/LMQHHL3.jpg"); // Or a default URL
             } catch (NoSuchMethodException e) {
                 // Handle if the object doesn't have the setter
             } catch (Exception e) {
