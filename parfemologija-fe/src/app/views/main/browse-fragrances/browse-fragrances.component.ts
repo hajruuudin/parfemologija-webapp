@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BrandService } from '../../../controller/brand.service';
 import { Brand } from '../../../model/brand-model';
 import { response } from 'express';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-browse-fragrances',
@@ -80,7 +81,7 @@ export class BrowseFragrancesComponent implements OnInit{
     private spinner: NgxSpinnerService,
     private brandService: BrandService,
     private fb: FormBuilder,
-    
+    private router: Router
   ){
     this.filters = this.fb.group({
       'gender' : [''],
@@ -201,7 +202,7 @@ export class BrowseFragrancesComponent implements OnInit{
     })
   }
 
-  navigateToFragranceOverview(id: number){
-    console.log("Going to fragrance: " + id)
+  navigateToFragranceOverview(slug: string){
+    this.router.navigate(['/fragrances', slug])
   }
 }
