@@ -19,16 +19,7 @@ export class HomepageComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.spinner.show()
-    this.fragranceService.getAllFragrances(0, 10).subscribe({
-      next: (response: any) => {
-        this.spinner.hide()
-        console.log("This only runs if the user is authenticated")
-      },
-      error: (error: any) => {
-        this.spinner.hide()
-        console.log("This means the user is not authenticated")
-      }
-    })
+    
+    
   }
 }

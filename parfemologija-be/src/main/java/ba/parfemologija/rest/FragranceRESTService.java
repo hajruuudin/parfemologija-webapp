@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Tag(name = "Fragrance", description = "Fragrance API")
 @AllArgsConstructor
@@ -19,12 +21,18 @@ import org.springframework.web.bind.annotation.*;
 public class FragranceRESTService {
     FragranceService fragranceService;
 
-    @Operation(description = "Get paginated fragrances from the database")
-    @GetMapping(value = "{pageNumber}/{pageSize}")
+    @Operation(description = "Get paginated fragrances from the database with optional filtering (using search, fragrance type, fragrance gender and potential brands)")
+    @GetMapping
     public ResponseEntity<Page<FragranceModel>> find(
-            @PathVariable Integer pageNumber,
-            @PathVariable Integer pageSize){
-        return fragranceService.find(PageRequest.of(pageNumber, pageSize));
+            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize,
+            @RequestParam(value = "brands", required = false) List<Integer> brandIds,
+            @RequestParam(value = "type", required = false) Integer typeId,
+            @RequestParam(value = "gender", required = false) String gender
+    )
+    {
+        return fragranceService.find(PageRequest.of(pageNumber, pageSize), search, brandIds, typeId, gender);
     }
 
     @Operation(description = "Create a new fragrance entity")

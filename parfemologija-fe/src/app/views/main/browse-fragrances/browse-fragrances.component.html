@@ -1,21 +1,68 @@
 <app-headline [title]="'Browse Fragrances'"></app-headline>
 
-<section class="w-full h-auto flex flex-row space-x-4">
-    <aside class="hidden md:flex w-3/12 h-64 flex-col justify-start items-center bg-(--primary-200) rounded-2xl p-2 mt-4">
+<section class="w-full flex flex-row items-start space-x-4">
+    <aside class="hidden md:flex w-3/12 h-auto flex-col justify-start items-center bg-(--secondary-200) outline-4 outline-(--secondary-400) rounded-2xl p-2 mt-4 sticky top-5">
         <h2 class="text-2xl font-bold">Filters</h2>
+
+        <form method="post" [formGroup]="filters" class="w-full h-auto px-2 flex flex-col justify-center items-stretch">
+            <h3 class="font-bold text-xl text-center">Gender</h3>
+            <div *ngFor="let gender of this.allGenders" class="flex flex-row justify-between items-center">
+                <label for="{{gender.value}}">{{gender.name}}</label>
+                <input type="radio" value="{{gender.value}}" id="{{gender.value}}" formControlName="gender" />
+            </div>
+
+            <h3 class="font-bold text-xl text-center">Type</h3>
+            <div *ngFor="let type of this.allTypes" class="flex flex-row justify-between items-center">
+                <label for="{{type.value}}">{{type.name}}</label>
+                <input type="radio" value="{{type.value}}" id="{{type.value}}" formControlName="type" />
+            </div>
+
+            <h3 class="font-bold text-xl text-center">Brand</h3>
+            <div *ngFor="let brand of this.allBrands" class="flex flex-row justify-between items-center">
+                <label for="{{brand.id}}">{{brand.brandName}}</label>
+                <input type="checkbox" [value]="brand.id" id="{{brand.id}}" (change)="this.onBrandCheckboxChange($event)"/>
+            </div>
+
+
+        </form>
     </aside>
 
-    <section class="w-full md:w-9/12 flex flex-col justify-start items-center">
+    <section class="w-full md:w-9/12 h-auto flex flex-col justify-start items-center mb-4">
         <app-search-bar
-            class="w-full"
+            class="w-full md:relative sticky top-5 md:top-0 z-30"
+            (searchSubmitted)="this.getFragrancesFiltered($event)"
         >
         </app-search-bar>
 
         <div id="search-result-container" class="w-full h-auto flex flex-wrap">
             <app-fragrance-card *ngFor="let fragrance of this.searchResult"
                 [fragrance]="fragrance"
+                (click)="this.navigateToFragranceOverview(fragrance.id)"
             ></app-fragrance-card>
         </div>
+
+        <div class="flex flex-row space-x-2">
+            <button 
+                ngIf="this.maxPageReached"
+                class="px-4 py-2 bg-(--secondary-200) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                (click)="this.onPrevClick()"
+            ><
+            </button>
+            <span
+            class="px-4 py-2 bg-(--secondary-200) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+            >
+            Page {{this.currentPage + 1}} of {{this.lastPage}}
+            </span>
+            <button 
+                ngIf="this.maxPageReached"
+                class="px-4 py-2 bg-(--secondary-200) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                (click)="this.onNextClick()"
+            >>
+            </button>
+        </div>
+
+
+
     </section>
 </section>
 

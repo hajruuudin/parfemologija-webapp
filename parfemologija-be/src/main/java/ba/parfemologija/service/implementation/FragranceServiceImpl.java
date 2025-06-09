@@ -29,9 +29,21 @@ public class FragranceServiceImpl implements FragranceService {
     LookupImageService lookupImageService;
 
     @Override
-    public ResponseEntity<Page<FragranceModel>> find(PageRequest request) {
+    public ResponseEntity<Page<FragranceModel>> find(PageRequest request, String search, List<Integer> brandIds, Integer typeId, String gender) {
         try{
-            Page<FragranceEntity> pagedFragranceResponse = fragranceDAO.findAll(request);
+            if(brandIds.isEmpty()){
+                brandIds = null;
+            }
+
+            if(typeId == 0){
+                typeId = null;
+            }
+
+            if(gender == ""){
+                gender = null;
+            }
+
+            Page<FragranceEntity> pagedFragranceResponse = fragranceDAO.findAllFiltered(request, search, brandIds, typeId, gender);
 
             List<FragranceModel> fragranceModelList = fragranceMapper.entitiesToDtos(pagedFragranceResponse.getContent());
 
