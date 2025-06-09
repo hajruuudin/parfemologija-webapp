@@ -7,6 +7,7 @@ import { HomepageComponent } from './views/main/homepage/homepage.component';
 import { BrowseArticlesComponent } from './views/main/browse-articles/browse-articles.component';
 import { BrowseFragrancesComponent } from './views/main/browse-fragrances/browse-fragrances.component';
 import { ProfileComponent } from './views/main/profile/profile.component';
+import { FragranceOverviewComponent } from './views/main/fragrance-overview/fragrance-overview.component';
 
 export const routes: Routes = [
     {
@@ -46,6 +47,10 @@ export const routes: Routes = [
             {
                 path: 'fragrances',
                 component: BrowseFragrancesComponent
+            },
+            {
+                path: 'fragrances/:slug',
+                component: FragranceOverviewComponent
             },
             {
                 path: 'profile',

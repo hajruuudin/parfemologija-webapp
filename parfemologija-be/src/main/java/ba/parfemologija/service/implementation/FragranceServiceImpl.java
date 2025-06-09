@@ -65,6 +65,22 @@ public class FragranceServiceImpl implements FragranceService {
     }
 
     @Override
+    public ResponseEntity<FragranceModel> findBySlug(String slug) {
+        try{
+            FragranceEntity fragranceEntity = fragranceDAO.findBySlug(slug);
+
+            FragranceModel fragranceModel = fragranceMapper.entityToDto(fragranceEntity);
+
+            lookupImageService.lookupThumbnailImage(fragranceModel, ObjectType.FRAGRANCE, fragranceModel.getId());
+
+            return ResponseEntity.ok(fragranceModel);
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new IllegalArgumentException("Fragrance Find Error");
+        }
+    }
+
+    @Override
     public ResponseEntity<FragranceModel> create(FragranceCreateRequest request) throws Exception {
         try{
             FragranceEntity fragranceEntity = fragranceMapper.dtoToEntity(request);

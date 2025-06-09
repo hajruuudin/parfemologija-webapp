@@ -1,1 +1,13 @@
-<p>fragrance-overview works!</p>
+<section id="left-part" class="w-full md:w-1/2 flex flex-col mt-10 items-center justify-center">
+    <img src="{{this.fragrance?.thumbnailImageUrl}}" alt="image" class="rounded-2xl w-6/8">
+    <h1 class="text-3xl font-bold">{{this.fragrance?.officialName}}</h1>
+    <h2>{{this.fragrance!.typeId | type}}</h2>
+</section>
+
+<section id="right-part" class="w-full md:w-1/2 mt-10 flex flex-col justify-start items-stretch">
+    <h2 class="text-2xl text-start font-bold">Brand Description</h2>
+    <p>{{this.fragranceBrand?.brandDescription}}</p>
+</section>
+
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-pulse" [fullScreen] = "true"><p style="color: white" > Loading.. </p></ngx-spinner>

@@ -35,6 +35,12 @@ public class FragranceRESTService {
         return fragranceService.find(PageRequest.of(pageNumber, pageSize), search, brandIds, typeId, gender);
     }
 
+    @Operation(description = "Get all the details of a fragrance by the fragrance slug")
+    @GetMapping(value = "{slug}")
+    public ResponseEntity<FragranceModel> findBySlug(@PathVariable String slug){
+        return fragranceService.findBySlug(slug);
+    }
+
     @Operation(description = "Create a new fragrance entity")
     @PostMapping
     public ResponseEntity<FragranceModel> create(@RequestBody FragranceCreateRequest request) throws Exception {

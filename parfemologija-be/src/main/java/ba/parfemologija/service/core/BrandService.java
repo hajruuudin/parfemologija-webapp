@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface BrandService {
     ResponseEntity<Page<BrandModel>> find(PageRequest request);
+    ResponseEntity<BrandModel> findById(Long id);
     ResponseEntity<BrandModel> create(BrandCreate request) throws Exception;
     ResponseEntity<BrandModel> update(BrandUpdate request);
     ResponseEntity<Boolean> deleteById(Long id);

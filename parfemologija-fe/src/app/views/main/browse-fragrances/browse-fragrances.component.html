@@ -37,13 +37,12 @@
         <div id="search-result-container" class="w-full h-auto flex flex-wrap">
             <app-fragrance-card *ngFor="let fragrance of this.searchResult"
                 [fragrance]="fragrance"
-                (click)="this.navigateToFragranceOverview(fragrance.id)"
+                (click)="this.navigateToFragranceOverview(fragrance.slug)"
             ></app-fragrance-card>
         </div>
 
         <div class="flex flex-row space-x-2">
             <button 
-                ngIf="this.maxPageReached"
                 class="px-4 py-2 bg-(--secondary-200) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
                 (click)="this.onPrevClick()"
             ><
@@ -54,7 +53,6 @@
             Page {{this.currentPage + 1}} of {{this.lastPage}}
             </span>
             <button 
-                ngIf="this.maxPageReached"
                 class="px-4 py-2 bg-(--secondary-200) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
                 (click)="this.onNextClick()"
             >>

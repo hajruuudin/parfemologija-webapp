@@ -15,4 +15,10 @@ export class FragranceService {
       withCredentials: true
     })
   }
+
+  getBySlug(slug: string){
+    return this.http.get(`${this.apiUrl}/fragrance/${slug}`, {
+      withCredentials: true
+    })
+  }
 }

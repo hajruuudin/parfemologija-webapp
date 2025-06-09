@@ -15,4 +15,10 @@ export class BrandService {
       withCredentials : true}
     )
   }
+
+  getBrandById(id: number){
+    return this.http.get(`${this.apiUrl}/brand/${id}`, {
+      withCredentials: true
+    })
+  }
 }
