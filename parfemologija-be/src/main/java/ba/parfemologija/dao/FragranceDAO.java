@@ -29,4 +29,6 @@ public interface FragranceDAO extends JpaRepository<FragranceEntity, Long> {
             @Param("gender") String gender
     );
 
+    FragranceEntity findBySlug(String slug);
+
 }

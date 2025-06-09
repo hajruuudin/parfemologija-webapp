@@ -27,6 +27,12 @@ public class BrandRESTService {
         return brandService.find(PageRequest.of(0, 10));
     }
 
+    @Operation(description = "Get a brand from the database by its id")
+    @GetMapping(value = "{id}")
+    public ResponseEntity<BrandModel> findById(@PathVariable Long id){
+        return brandService.findById(id);
+    }
+
     @Operation(description = "Create a new brand")
     @PostMapping
     public ResponseEntity<BrandModel> create(@RequestBody BrandCreate request) throws Exception {

@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.rmi.NoSuchObjectException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,24 @@ public class BrandServiceImpl implements BrandService {
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+    @Override
+    public ResponseEntity<BrandModel> findById(Long id) {
+        try{
+            Optional<BrandEntity> brandEntity = brandDAO.findById(id);
+
+            if(brandEntity.isPresent()){
+                BrandModel brandModel = brandMapper.entityToDto(brandEntity.get());
+
+                return ResponseEntity.ok(brandModel);
+            } else {
+                throw new NoSuchObjectException("No Brand found for given ID");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new IllegalArgumentException("Brand Get Error");
         }
     }
 
