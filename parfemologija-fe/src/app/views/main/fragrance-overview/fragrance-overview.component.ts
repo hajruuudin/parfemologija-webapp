@@ -15,8 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ReviewService } from '../../../controller/review.service';
 import { ReviewCardComponent } from "../../../components/review-card/review-card.component";
 import { LoggedUserProfile } from '../../../model/user-model';
-import { response } from 'express';
-import { error } from 'console';
+
 
 @Component({
   selector: 'app-fragrance-overview',

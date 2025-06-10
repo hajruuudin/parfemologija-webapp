@@ -1,14 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaService {
-
+  private apiUrl = environment.apiUrl;
   private IMGUR_UPLOAD_URL = 'https://api.imgur.com/3/image';
-  private IMGUR_CLIENT_ID = 'YOUR_IMGUR_CLIENT_ID';
+  private IMGUR_CLIENT_ID = '733a6dd9987cf18';
 
   constructor(private http: HttpClient) {}
 
@@ -44,5 +45,11 @@ export class MediaService {
       reader.onerror = reject;
       reader.readAsDataURL(file);
     });
+  }
+
+  storeImageUrlToDatabase(objectId: number, objectType: string, imgUrl: string){
+    return this.http.post(`${this.apiUrl}/media`, {objectType, objectId, imgUrl}, {
+      withCredentials: true
+    })
   }
 }

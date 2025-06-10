@@ -1,1 +1,35 @@
-<p>profile works!</p>
+<section id="header-and-profile-info" class="flex flex-row w-full mt-10">
+    <div id="profile-info" class="w-full md:w-1/2 flex flex-col justify-center items-center space-y-4 mx-4">
+        <h1 class="text-3xl font-bold my-2">Profile Overview</h1>
+
+        <div class="flex flex-col md:flex-row w-full space-y-4 md:space-y-0 md:space-x-4">
+            <div class="w-full md:w-1/2 h-auto py-2 px-4 bg-(--secondary-200) rounded-2xl">{{this.currentUser?.username}}</div>
+            <div class="w-full md:w-1/2 h-auto py-2 px-4 bg-(--secondary-200) rounded-2xl">{{this.currentUser?.email}}</div>
+        </div>
+
+        <div class="flex flex-col md:flex-row w-full space-y-4 md:space-y-0 md:space-x-4">
+            <div class="w-full md:w-1/2 h-auto py-2 px-4 bg-(--secondary-200) rounded-2xl">{{this.currentUser?.name}}</div>
+            <div class="w-full md:w-1/2 h-auto py-2 px-4 bg-(--secondary-200) rounded-2xl">{{this.currentUser?.surname}}</div>
+        </div>
+
+        <div class="flex flex-col md:flex-row w-full space-y-4 md:space-y-0 md:space-x-4">
+            <div class="w-full md:w-1/2 h-auto py-2 px-4 bg-(--secondary-200) rounded-2xl">{{this.currentUser?.phoneNumber}}</div>
+            <div class="w-full md:w-1/2 h-auto py-2 px-4 bg-(--secondary-200) rounded-2xl">{{this.currentUser?.location}}</div>
+        </div>
+
+        <div class="flex flex-row w-full space-y-4 md:space-y-0 md:space-x-4">
+            <button 
+                class="px-4 py-2 mt-2 bg-(--secondary-400) m-auto font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+            >Add A New Article
+            </button>
+            <button *ngIf="this.currentUser?.isAdmin"
+                    class="px-4 py-2 mt-2 bg-(--secondary-400) m-auto font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                    (click)="navigateToAddFragrancePage()"
+            >Add A New Fragrance
+            </button>
+        </div>
+    </div>
+    <div id="profile-picture" class="hidden md:flex md:w-1/2 flex-col justify-center items-center">
+        <img src="/assets/icons/USER.png" alt="User" class="bg-(--primary-200) aspect-square rounded-full w-1/2">
+    </div>
+</section>

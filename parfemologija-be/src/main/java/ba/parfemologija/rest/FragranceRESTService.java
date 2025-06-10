@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -43,8 +44,8 @@ public class FragranceRESTService {
 
     @Operation(description = "Create a new fragrance entity")
     @PostMapping
-    public ResponseEntity<FragranceModel> create(@RequestBody FragranceCreateRequest request) throws Exception {
-        return fragranceService.create(request);
+    public ResponseEntity<FragranceModel> create(@RequestBody FragranceCreateRequest request, Principal principal) throws Exception {
+        return fragranceService.create(request, principal);
     }
 
     @Operation(description = "Update an existing fragrance entity")
