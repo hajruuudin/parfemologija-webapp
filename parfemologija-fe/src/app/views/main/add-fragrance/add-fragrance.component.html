@@ -1,1 +1,159 @@
-<p>add-fragrance works!</p>
+<section id="form-and-heading" class="w-2/3 lg:w-1/2 mt-4 bg-(--secondary-300) rounded-2xl px-4 md:px-24 py-4">
+    <h1 class="text-3xl font-bold text-center">Add a new fragrance</h1>
+
+    <form method="post" [formGroup]="fragranceForm" class="flex flex-col w-full justify-start items-center">
+        <div class="flex flex-col w-full items-center my-2">
+            <label for="official-name" class="text-xl">Official Name</label>
+            <input
+                type="text"
+                id="official-name"
+                formControlName="officialName"
+                placeholder="e.g., Sauvage"
+                class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+            >
+        </div>
+
+        <div class="flex flex-col w-full items-center my-2">
+            <label for="fragrance-brand" class="text-xl">Fragrance Brand</label>
+            <select
+                id="fragrance-brand"
+                formControlName="brandId"
+                class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+            >
+                <option value="" disabled selected>Select a brand</option>
+                <option *ngFor="let brand of selectBrands" [value]="brand.id">{{ brand.brandName }}</option>
+            </select>
+        </div>
+
+        <div class="flex flex-col w-full items-center my-2">
+            <label for="fragrance-type" class="text-xl">Fragrance Type</label>
+            <select
+                id="fragrance-type"
+                formControlName="typeId"
+                class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+            >
+                <option value="" disabled selected>Select a type</option>
+                <option *ngFor="let type of selectTypes" [value]="type.value">{{ type.name }}</option>
+            </select>
+        </div>
+
+        <h2 class="text-2xl font-bold mt-8">Ratings</h2>
+        <div class="flex flex-col lg:flex-row w-full justify-between items-center lg:space-x-4">
+            <div class="flex flex-col w-full lg:w-1/4 justify-center items-center space-y-2">
+                <label for="winter-rating" class="text-xl whitespace-nowrap">Winter Rating</label>
+                <input
+                    type="number"
+                    id="winter-rating"
+                    formControlName="winterRating"
+                    placeholder="1-10"
+                    min="1" max="10"
+                    class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+                >
+            </div>
+
+            <div class="flex flex-col w-full lg:w-1/4 justify-center items-center space-y-2">
+                <label for="spring-rating" class="text-xl whitespace-nowrap">Spring Rating</label>
+                <input
+                    type="number"
+                    id="spring-rating"
+                    formControlName="springRating"
+                    placeholder="1-10"
+                    min="1" max="10"
+                    class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+                >
+            </div>
+
+            <div class="flex flex-col w-full lg:w-1/4 justify-center items-center space-y-2">
+                <label for="summer-rating" class="text-xl whitespace-nowrap">Summer Rating</label>
+                <input
+                    type="number"
+                    id="summer-rating"
+                    formControlName="summerRating"
+                    placeholder="1-10"
+                    min="1" max="10"
+                    class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+                >
+            </div>
+
+            <div class="flex flex-col w-full lg:w-1/4 justify-center items-center space-y-2">
+                <label for="fall-rating" class="text-xl whitespace-nowrap">Fall Rating</label>
+                <input
+                    type="number"
+                    id="fall-rating"
+                    formControlName="fallRating"
+                    placeholder="1-10"
+                    min="1" max="10"
+                    class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+                >
+            </div>
+        </div>
+
+        <h2 class="text-2xl font-bold mt-8">Performance</h2>
+        <div class="flex flex-col lg:flex-row w-full justify-between items-center lg:space-x-4">
+            <div class="flex flex-col w-full lg:w-1/2 justify-center items-center space-y-2">
+                <label for="sillage-rating" class="text-xl whitespace-nowrap">Sillage</label>
+                <input
+                    type="number"
+                    id="sillage-rating"
+                    formControlName="sillageRating"
+                    placeholder="1-10"
+                    min="1" max="10"
+                    class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+                >
+            </div>
+
+            <div class="flex flex-col w-full lg:w-1/2 justify-center items-center space-y-2">
+                <label for="longevity-rating" class="text-xl whitespace-nowrap">Longevity</label>
+                <input
+                    type="number"
+                    id="longevity-rating"
+                    formControlName="longevityRating"
+                    placeholder="1-10"
+                    min="1" max="10"
+                    class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+                >
+            </div>
+        </div>
+
+        <div class="flex flex-col w-full items-center my-2">
+            <label for="gender" class="text-xl">Gender</label>
+            <select
+                id="gender"
+                formControlName="gender"
+                class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+            >
+                <option value="" disabled selected>Select gender</option>
+                <option *ngFor="let genderOpt of selectGenders" [value]="genderOpt.value">{{ genderOpt.name }}</option>
+            </select>
+        </div>
+
+        <div class="flex flex-col w-full items-center my-2">
+            <label for="price-range" class="text-xl">Price Range</label>
+            <input
+                type="text"
+                id="price-range"
+                formControlName="priceRange"
+                placeholder="e.g., $50 - $100 or Luxury"
+                class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+            >
+        </div>
+
+       <div class="flex flex-col w-full items-center my-2">
+            <label for="fragrance-image" class="text-xl">Fragrance Image</label>
+            <input
+                type="file"
+                id="fragrance-image"
+                (change)="onFileSelected($event)"
+                accept="image/*" class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 bg-[var(--secondary-200)] flex items-center justify-center cursor-pointer file:h-12 file:px-4 file:bg-(--secondary-400) file:py-2 file:rounded-2xl file:border-0 file:text-sm file:font-semibol hover:file:bg-(--primary-600)"
+                style="line-height: normal;">
+        </div>
+
+        <button 
+                class="px-4 py-2 bg-(--secondary-200) font-black rounded-xl mt-4 tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                (click)="this.onFormSubmit()"
+        >Add Fragrance
+        </button>
+    </form>
+</section>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-pulse"><p style="color: white" > Loading.. </p></ngx-spinner>
