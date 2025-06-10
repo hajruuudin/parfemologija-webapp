@@ -31,3 +31,15 @@ export class UserLogin{
         public password: String
     ) {}
 }
+
+export interface LoggedUserProfile{
+    id: number,
+    username: string;
+    name: string;
+    surname: string;
+    email: string;
+    phoneNumber: number;
+    location: string;
+    isAdmin: boolean;
+    joinedAt: string;
+}

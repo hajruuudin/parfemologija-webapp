@@ -3,7 +3,16 @@ export interface FragranceReview {
   head: string;
   body: string;
   rating: number;
-  created_by: number;
-  created_at: string;
-  fragrance_id: number;
+  createdBy: string;
+  createdAt: string;
+  fragranceId: number;
+}
+
+export class FragranceReviewCreate{
+    constructor(
+        public head: string,
+        public body: string,
+        public rating: number,
+        public fragranceId: number
+    ){}
 }

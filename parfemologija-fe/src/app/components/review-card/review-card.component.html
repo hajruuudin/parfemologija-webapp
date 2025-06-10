@@ -1,0 +1,25 @@
+<section id="review-headline-and-rating" class="w-full flex flex-row justify-between items-center">
+    <h2 class="text-3xl font-bold">{{this.review?.head}}</h2>
+    <span class="text-2xl font-black">{{this.review?.rating}}</span>
+</section>
+
+<div class="w-full my-2 h-1 opacity-50 bg-white rounded-2xl"></div>
+
+<section id="review-body-and-user-and-date">
+    <p class="text-base">{{this.review?.body}}</p>
+
+    <div class="flex flex-row justify-between items-center my-2 italic">
+        <span>{{this.review?.createdAt | date }}</span>
+        <span>{{this.review?.createdBy}}</span>
+    </div>
+</section>
+
+<section id="review-delete" class="w-full flex flex-row justify-end">
+    <button 
+    *ngIf="this.isUserReview" 
+    class="px-4 py-2 bg-(--secondary-200) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all mt-4"
+    (click)="this.deleteReview($event)"
+    >Delete Review
+    </button>
+</section>
+
