@@ -7,9 +7,6 @@ import lombok.Data;
 @Schema(description = "Properties for creating  a Fragrance entity")
 public class FragranceCreateRequest {
 
-    @Schema(description = "Slug identifier of the fragrance")
-    private String slug;
-
     @Schema(description = "Official name of the fragrance")
     private String officialName;
 

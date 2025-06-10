@@ -7,12 +7,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface FragranceService {
     ResponseEntity<Page<FragranceModel>> find(PageRequest request, String search, List<Integer> brandIds, Integer typeId, String gender);
     ResponseEntity<FragranceModel> findBySlug(String slug);
-    ResponseEntity<FragranceModel> create(FragranceCreateRequest request) throws Exception;
+    ResponseEntity<FragranceModel> create(FragranceCreateRequest request, Principal principal) throws Exception;
     ResponseEntity<FragranceModel> update(FragranceUpdateRequest update);
     ResponseEntity<Boolean> deleteById(Long id);
 }

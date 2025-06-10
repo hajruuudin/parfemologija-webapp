@@ -1,7 +1,9 @@
 package ba.parfemologija.service.implementation;
 
 import ba.parfemologija.dao.FragranceDAO;
+import ba.parfemologija.dao.UserDAO;
 import ba.parfemologija.dao.entities.FragranceEntity;
+import ba.parfemologija.dao.entities.UserEntity;
 import ba.parfemologija.service.core.FragranceService;
 import ba.parfemologija.service.core.LookupImageService;
 import ba.parfemologija.service.core.models.fragrance.FragranceCreateRequest;
@@ -17,14 +19,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class FragranceServiceImpl implements FragranceService {
     FragranceDAO fragranceDAO;
+    UserDAO userDAO;
     FragranceMapper fragranceMapper;
     LookupImageService lookupImageService;
 
@@ -81,12 +86,18 @@ public class FragranceServiceImpl implements FragranceService {
     }
 
     @Override
-    public ResponseEntity<FragranceModel> create(FragranceCreateRequest request) throws Exception {
+    public ResponseEntity<FragranceModel> create(FragranceCreateRequest request, Principal principal) throws Exception {
         try{
+            UserEntity userEntity = userDAO.findByUsername(principal.getName());
             FragranceEntity fragranceEntity = fragranceMapper.dtoToEntity(request);
 
+            String entitySlugInitial =
+                    request.getOfficialName().trim().toLowerCase(Locale.ROOT).replace(" ", "-") + '-' +
+                    request.getBrandId() + '-' + request.getTypeId() + '-' + "2025";
+
             fragranceEntity.setCreatedAt(LocalDateTime.now());
-            fragranceEntity.setCreatedBy("hajrudin.imamovic"); // Switch later with user request from frontend
+            fragranceEntity.setCreatedBy(userEntity.getUsername());
+            fragranceEntity.setSlug(entitySlugInitial);
             fragranceDAO.save(fragranceEntity);
 
             return ResponseEntity.ok(fragranceMapper.entityToDto(fragranceEntity));
