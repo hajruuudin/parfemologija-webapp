@@ -1,6 +1,7 @@
 package ba.parfemologija.rest;
 
 import ba.parfemologija.service.core.UserService;
+import ba.parfemologija.service.core.models.user.LoggedUserModel;
 import ba.parfemologija.service.core.models.user.UserCreate;
 import ba.parfemologija.service.core.models.user.UserModel;
 import ba.parfemologija.service.core.models.user.UserUpdate;
@@ -12,10 +13,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @Tag(name = "User", description = "User API")
 @AllArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("user")
 public class UserRESTService {
     
     private final UserService userService;
@@ -23,8 +26,13 @@ public class UserRESTService {
     @Operation(description = "Get users from database with pagination")
     @GetMapping
     public ResponseEntity<Page<UserModel>> findAll() {
-        // fixed page 0, size 10 like Accord example
         return userService.find(PageRequest.of(0, 10));
+    }
+
+    @Operation(description = "Get a users profile from the database using session information")
+    @GetMapping(value = "profile")
+    public ResponseEntity<LoggedUserModel> findUserProfile(Principal principal){
+        return userService.findUserProfile(principal);
     }
 
     @Operation(description = "Register a new user")
