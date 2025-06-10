@@ -1,12 +1,86 @@
-<section id="left-part" class="w-full md:w-1/2 flex flex-col mt-10 items-center justify-center">
+<section id="left-part" class="w-full md:w-1/2 flex flex-col mt-10 items-center justify-center md:sticky md:top-5">
     <img src="{{this.fragrance?.thumbnailImageUrl}}" alt="image" class="rounded-2xl w-6/8">
-    <h1 class="text-3xl font-bold">{{this.fragrance?.officialName}}</h1>
-    <h2>{{this.fragrance!.typeId | type}}</h2>
+    <h1 class="text-3xl font-bold mt-2">{{this.fragrance?.officialName}}</h1>
+    <h2 *ngIf="this.fragrance" class="text-2xl mt-2">{{this.fragrance.typeId | type}}</h2>
 </section>
 
-<section id="right-part" class="w-full md:w-1/2 mt-10 flex flex-col justify-start items-stretch">
+<section id="right-part" class="w-full md:w-1/2 mt-10 px-8 flex flex-col justify-start items-stretch">
     <h2 class="text-2xl text-start font-bold">Brand Description</h2>
     <p>{{this.fragranceBrand?.brandDescription}}</p>
+
+    <h2 class="text-2xl text-start font-bold mt-4">Season ratings</h2>
+    <div id="season ratings" class="flex flex-row justify-between items-center space-x-4">
+        <div class="flex flex-col lg:flex-row justify-center items-center space-x-1">
+            <img src="/assets/icons/WINTER.png" alt="Winter" class="w-16 h-auto">
+            <span class="text-xl font-black">{{this.fragrance?.winterRating}} / 10</span>
+        </div>
+
+        <div class="flex flex-col lg:flex-row justify-center items-center space-x-1">
+            <img src="/assets/icons/SPRING.png" alt="Spring" class="w-16 h-auto">
+            <span class="text-xl font-black">{{this.fragrance?.springRating}} / 10</span>
+        </div>
+
+        <div class="flex flex-col lg:flex-row justify-center items-center space-x-1">
+            <img src="/assets/icons/SUMMER.png" alt="Summer" class="w-16 h-auto">
+            <span class="text-xl font-black">{{this.fragrance?.summerRating}} / 10</span>
+        </div>
+
+        <div class="flex flex-col lg:flex-row justify-center items-center space-x-1">
+            <img src="/assets/icons/FALL.png" alt="Fall" class="w-16 h-auto">
+            <span class="text-xl font-black">{{this.fragrance?.fallRating}} / 10</span>
+        </div>
+    </div>
+
+    <h2 class="text-2xl text-start font-bold mt-4">Sillage</h2>
+    <div class="flex flex-row justify-between items-center space-x-4">
+        <span class="text-xl font-black">1</span>
+        <div class="w-full grow h-4 rounded-2xl bg-white">
+            <div *ngIf="sillageRatingStyle" [ngStyle]="sillageRatingStyle"></div>
+        </div>
+        <span class="text-xl font-black">10</span>
+    </div>
+
+    <h2 class="text-2xl text-start font-bold mt-4">Longevity</h2>
+    <div class="w-full flex flex-row justify-between items-center space-x-4">
+        <span class="text-xl font-black">1</span>
+        <div class="w-full grow h-4 rounded-2xl bg-white">
+          <div *ngIf="logevityRatingStyle" [ngStyle]="logevityRatingStyle"></div>
+        </div>
+        <span class="text-xl font-black">10</span>
+    </div>
+
+    <h2 class="text-2xl text-start font-bold mt-8">Reviews</h2>
+
+    <div class="w-full h-1 rounded-2xl bg-white opacity-50"></div>
+
+    <form method="post" [formGroup]="this.reviewForm">
+        <h3 class="text-xl mt-2">Leave a review</h3>
+        <div class="flex flex-row space-x-4 mt-2">
+            <input type="text" name="head" id="head" placeholder="Headline for the review..." class="grow rounded-xl h-10 border-2 px-2" formControlName="head"/>
+            <input type="number" max="10" min="1" name="rating" placeholder="5" id="rating" class="rounded-xl h-10 border-2 px-10" formControlName="rating"/>
+        </div>
+        <textarea name="body" id="body" placeholder="Review body..." rows="5" class="w-full border-2 rounded-xl mt-4 p-2" formControlName="body"></textarea>
+        <button 
+                class="px-4 py-2 mt-2 bg-(--secondary-400) m-auto font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                (click)="this.onAddReviewPressed($event)"
+        >Add Review
+        </button>
+    </form>
+
+    <h3 class="text-xl mt-2">All Reviews</h3>
+    <div *ngIf="this.currentUser" class="flex flex-col space-y-2">
+        <app-review-card
+            *ngFor="let review of fragranceReviews"
+            [review]="review"
+            [isUserReview]="this.currentUser.username == review.createdBy ? true : false"
+            (deletePressed)="onDeleteUserReviewPressed($event)"
+        ></app-review-card>
+
+        <div *ngIf="this.fragranceReviews.length == 0" class="my-4">
+            <h2 class="text-center font-bold text-3xl">No reviews!</h2>
+        </div>
+    </div>
+    
 </section>
 
 
