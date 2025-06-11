@@ -139,14 +139,18 @@ export class AddFragranceComponent implements OnInit{
         next: (response : any) => {
           this.spinner.hide()
           this.toastr.success("Fragrance added!")
-          this.mediaService.storeImageUrlToDatabase(response['id'], 'FRAGRANCE', imageUrl!).subscribe({
-            next: (response : any) => {
-              this.toastr.success("Image Added")
-            },
-            error: (response : HttpErrorResponse) => {
-              this.toastr.error("Image not added")
-            }
-          })
+
+          if(imageUrl != null){
+            this.mediaService.storeImageUrlToDatabase(response['id'], 'FRAGRANCE', imageUrl!).subscribe({
+              next: (response : any) => {
+                this.toastr.success("Image Added")
+              },
+              error: (response : HttpErrorResponse) => {
+                this.toastr.error("Image not added")
+              }
+            })
+          }
+         
         },
         error: (error: HttpErrorResponse) => {
           this.spinner.hide()
