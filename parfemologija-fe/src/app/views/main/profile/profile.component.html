@@ -1,4 +1,4 @@
-<section id="header-and-profile-info" class="flex flex-row w-full mt-10">
+<section id="header-and-profile-info" class="flex flex-row w-full mt-10 justify-between">
     <div id="profile-info" class="w-full md:w-1/2 flex flex-col justify-center items-center space-y-4 mx-4">
         <h1 class="text-3xl font-bold my-2">Profile Overview</h1>
 
@@ -30,9 +30,45 @@
             </button>
         </div>
     </div>
-    <div id="profile-picture" class="hidden md:flex md:w-1/2 flex-col justify-center items-center">
+    <div id="profile-picture" class="hidden md:flex md:w-1/2 flex-col justify-center items-end">
         <img src="/assets/icons/USER.png" alt="User" class="bg-(--primary-200) aspect-square rounded-full w-1/2">
     </div>
+</section>
+
+<section id="wishlist-articles-collection" class="flex flex-col w-full mt-10 space-y-4">
+    <section id="wishlist" class="w-full bg-(--secondary-200) rounded-2xl h-auto min-h-32 flex flex-col justify-start items-start overflow-x-auto">
+        <h2 class="text-2xl font-bold py-2 px-4">Your Wishlist</h2>
+        <div *ngIf="this.userWishlist.length != 0" id="wishlist-container" class="grow flex flex-row justify-start px-4 pb-4">
+            <app-fragrance-card-small
+                *ngFor="let fragrance of userWishlist"
+                [fragrance]="fragrance"
+                (click)="navigateToFragranceOverview(fragrance.slug)"
+            ></app-fragrance-card-small>
+        </div>
+        <h2 *ngIf="this.userWishlist.length == 0" class="text-2xl font-semibold text-center">Your wishlist is currently empty!</h2>
+    </section>
+
+    
+    <section id="collection" class="w-full bg-(--secondary-200) rounded-2xl h-auto min-h-32 flex flex-col justify-start items-start overflow-x-auto">
+        <h2 class="text-2xl font-bold py-2 px-4">Your Current Collection</h2>
+        <div *ngIf="this.userCollection.length != 0" id="collection-container" class="grow flex flex-row justify-start px-4 pb-4">
+            <app-fragrance-card-small
+                *ngFor="let fragrance of userCollection"
+                [fragrance]="fragrance"
+                (click)="navigateToFragranceOverview(fragrance.slug)"
+            ></app-fragrance-card-small>
+        </div>
+        <h2 *ngIf="this.userCollection.length == 0" class="text-2xl font-semibold text-center">You'r collection is currently empty!</h2>
+    </section>
+
+    <section id="articles" class="w-full bg-(--secondary-200) rounded-2xl h-auto min-h-32 flex flex-col justify-start items-start overflow-x-auto">
+        <h2 class="text-2xl font-bold py-2 px-4">Your Articles</h2>
+        <div *ngIf="this.userArticles.length != 0" id="article-container" class="grow flex flex-row justify-start px-4 pb-4">
+            
+        </div>
+        <h2 *ngIf="this.userArticles.length == 0" class="w-full grow text-2xl font-semibold text-center">Your do not have any active articles!</h2>
+    </section>
+
 </section>
 
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-pulse" [fullScreen] = "true"><p style="color: white" > Loading.. </p></ngx-spinner>
