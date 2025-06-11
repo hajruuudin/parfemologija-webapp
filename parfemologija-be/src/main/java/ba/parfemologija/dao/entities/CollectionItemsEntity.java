@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
-// This is an intermediary table, just keeps track of which fragrances are in which users collection
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,5 +20,15 @@ public class CollectionItemsEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    //Other columns
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "fragrance_slug")
+    private String fragranceSlug;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "created_by")
+    private String createdBy;
 }

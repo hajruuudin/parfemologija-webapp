@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +20,16 @@ public class WishlistItemsEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    //Other columns
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "fragrance_slug")
+    private String fragranceSlug;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "created_by")
+    private String createdBy;
 }
 
