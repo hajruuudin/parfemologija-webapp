@@ -1,1 +1,67 @@
-<p>add-article works!</p>
+<section id="form-and-heading" class="w-2/3 lg:w-1/2 mt-4 bg-(--secondary-300) rounded-2xl px-4 md:px-24 py-4">
+    <h1 class="text-3xl font-bold text-center">Add a new article</h1>
+
+    <form method="post" [formGroup]="articleForm" class="flex flex-col w-full justify-start items-center">
+        <div class="flex flex-col w-full items-center my-2">
+            <label for="article-title" class="text-xl">Article Title</label>
+            <input
+                type="text"
+                id="article-title"
+                formControlName="articleTitle"
+                placeholder="e.g., Used Dior Sauvage, 55ml"
+                class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+            >
+        </div>
+
+        <div class="flex flex-col w-full items-center my-2">
+            <label for="article-description" class="text-xl">Article Description</label>
+            <textarea
+                id="article-description"
+                formControlName="articleDescription"
+                rows="3"
+                class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-24 py-2 px-4 bg-(--secondary-200)"
+            ></textarea>
+        </div>
+
+        <div class="flex flex-col w-full items-center my-2">
+            <label for="article-type" class="text-xl">Article Type</label>
+            <select
+                id="article-type"
+                formControlName="articleType"
+                class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+            >
+                <option value="" disabled selected>Select a type</option>
+                <option *ngFor="let type of selectTypes" [value]="type.value">{{ type.name }}</option>
+            </select>
+        </div>
+
+        <div class="flex flex-col w-full items-center my-2">
+            <label for="article-price" class="text-xl">Article Price</label>
+            <input
+                type="text"
+                id="article-price"
+                formControlName="articlePrice"
+                placeholder="e.g., $50 - $100"
+                class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 px-4 bg-(--secondary-200)"
+            >
+        </div>
+
+       <div class="flex flex-col w-full items-center my-2">
+            <label for="article-image" class="text-xl">Article Image</label>
+            <input
+                type="file"
+                id="article-image"
+                (change)="onFileSelected($event)"
+                accept="image/*" class="w-full rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-0 h-12 bg-[var(--secondary-200)] flex items-center justify-center cursor-pointer file:h-12 file:px-4 file:bg-(--secondary-400) file:py-2 file:rounded-2xl file:border-0 file:text-sm file:font-semibol hover:file:bg-(--primary-600)"
+                style="line-height: normal;">
+        </div>
+
+        <button 
+                class="px-4 py-2 bg-(--secondary-200) font-black rounded-xl mt-4 tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                (click)="this.onFormSubmit()"
+        >Add Fragrance
+        </button>
+    </form>
+</section>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-pulse"><p style="color: white" > Loading.. </p></ngx-spinner>

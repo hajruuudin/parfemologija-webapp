@@ -20,6 +20,7 @@
         <div class="flex flex-row w-full space-y-4 md:space-y-0 md:space-x-4">
             <button 
                 class="px-4 py-2 mt-2 bg-(--secondary-400) m-auto font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                (click)="navigateToAddArticlePage()"
             >Add A New Article
             </button>
             <button *ngIf="this.currentUser?.isAdmin"
@@ -33,3 +34,5 @@
         <img src="/assets/icons/USER.png" alt="User" class="bg-(--primary-200) aspect-square rounded-full w-1/2">
     </div>
 </section>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-pulse" [fullScreen] = "true"><p style="color: white" > Loading.. </p></ngx-spinner>
