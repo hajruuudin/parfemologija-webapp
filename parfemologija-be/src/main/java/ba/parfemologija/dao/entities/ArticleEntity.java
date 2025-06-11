@@ -21,7 +21,7 @@ public class ArticleEntity implements Serializable {
     private Long id;
 
     @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    private Long userId;
 
     @Column(name = "article_title", nullable = false)
     private String articleTitle;
@@ -41,12 +41,12 @@ public class ArticleEntity implements Serializable {
     @Column(name = "modified_by")
     private String modifiedBy;
 
-    @Column(name = "article_fragrance_id")
-    private Integer articleFragranceId;
-
     @Column(name = "article_type")
     private String articleType;
 
     @Column(name = "article_price", precision = 10, scale = 2)
     private BigDecimal articlePrice;
+
+    @Column(name = "article_location")
+    private String articleLocation;
 }

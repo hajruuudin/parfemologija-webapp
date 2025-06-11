@@ -1,9 +1,11 @@
 package ba.parfemologija.service.implementation;
 
 import ba.parfemologija.dao.ArticleDAO;
+import ba.parfemologija.dao.UserDAO;
 import ba.parfemologija.dao.entities.ArticleEntity;
+import ba.parfemologija.dao.entities.UserEntity;
 import ba.parfemologija.service.core.LookupImageService;
-import ba.parfemologija.service.core.models.ArticleService;
+import ba.parfemologija.service.core.ArticleService;
 import ba.parfemologija.service.core.models.article.ArticleCreateRequest;
 import ba.parfemologija.service.core.models.article.ArticleModel;
 import ba.parfemologija.service.core.models.article.ArticleUpdateRequest;
@@ -17,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +28,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
     ArticleDAO articleDAO;
+    UserDAO userDAO;
     ArticleMapper articleMapper;
     LookupImageService lookupImageService;
 
@@ -53,13 +57,15 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ResponseEntity<ArticleModel> create(ArticleCreateRequest request) throws Exception {
+    public ResponseEntity<ArticleModel> create(ArticleCreateRequest request, Principal principal) throws Exception {
         try {
             ArticleEntity articleEntity = articleMapper.dtoToEntity(request);
+            UserEntity userEntity = userDAO.findByUsername(principal.getName());
 
             articleEntity.setCreatedAt(LocalDateTime.now());
-            articleEntity.setUserId(5); //senad senad za sad
-            articleEntity.setCreatedBy("user-from-frontend-session"); // Switch later with user request from frontend
+            articleEntity.setUserId(userEntity.getId());
+            articleEntity.setCreatedBy(userEntity.getUsername());
+            articleEntity.setArticleLocation(userEntity.getLocation());
             articleDAO.save(articleEntity);
 
             return ResponseEntity.ok(articleMapper.entityToDto(articleEntity));
