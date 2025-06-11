@@ -15,7 +15,7 @@ public class ArticleModel implements Serializable {
     private Long id;
 
     @Schema(description = "User identifier associated with the article", nullable = false)
-    private Integer userId;
+    private Long userId;
 
     @Schema(description = "Title of the article", nullable = false)
     private String articleTitle;
@@ -35,14 +35,14 @@ public class ArticleModel implements Serializable {
     @Schema(description = "Identifier of the user who last modified the article")
     private String modifiedBy;
 
-    @Schema(description = "Identifier of the fragrance associated with the article")
-    private Integer articleFragranceId;
-
     @Schema(description = "Type of the article")
     private String articleType;
 
     @Schema(description = "Price of the article")
     private BigDecimal articlePrice;
+
+    @Schema(description = "Location of the article")
+    private String articleLocation;
 
     @Schema(description = "Thumbnail Image URL of the article")
     private String thumbnailImageUrl;

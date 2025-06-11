@@ -2,6 +2,34 @@
     <img src="{{this.fragrance?.thumbnailImageUrl}}" alt="image" class="rounded-2xl w-6/8">
     <h1 class="text-3xl font-bold mt-2">{{this.fragrance?.officialName}}</h1>
     <h2 *ngIf="this.fragrance" class="text-2xl mt-2">{{this.fragrance.typeId | type}}</h2>
+
+    <div id="wishlist-collection-buttons" class="w-full flex flex-row justify-center items-center space-x-4">
+            <button 
+                *ngIf="this.isInWishlist"
+                class="px-4 py-2 mt-2 bg-(--secondary-400) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                (click)="this.toggleFragranceWishlist()"
+            >Remove From Wishlist
+            </button>
+            <button 
+                *ngIf="!this.isInWishlist"
+                class="px-4 py-2 mt-2 bg-(--secondary-400) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                (click)="this.toggleFragranceWishlist()"
+            >Add To Wishlist
+            </button>
+
+            <button 
+                *ngIf="this.isInCollection"
+                class="px-4 py-2 mt-2 bg-(--secondary-400) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                (click)="this.toggleFragranceCollection()"
+            >Remove From Collection
+            </button>
+            <button 
+                *ngIf="!this.isInCollection"
+                class="px-4 py-2 mt-2 bg-(--secondary-400) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                (click)="this.toggleFragranceCollection()"
+            >Add To Collection
+            </button>
+    </div>
 </section>
 
 <section id="right-part" class="w-full md:w-1/2 mt-10 px-8 flex flex-col justify-start items-stretch">

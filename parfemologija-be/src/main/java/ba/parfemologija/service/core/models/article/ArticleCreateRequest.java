@@ -16,9 +16,6 @@ public class ArticleCreateRequest implements Serializable {
     @Schema(description = "Description of the article")
     private String articleDescription;
 
-    @Schema(description = "Identifier of the fragrance associated with the article")
-    private Integer articleFragranceId;
-
     @Schema(description = "Type of the article")
     private String articleType;
 

@@ -1,6 +1,6 @@
 package ba.parfemologija.rest;
 
-import ba.parfemologija.service.core.models.ArticleService;
+import ba.parfemologija.service.core.ArticleService;
 import ba.parfemologija.service.core.models.article.ArticleCreateRequest;
 import ba.parfemologija.service.core.models.article.ArticleModel;
 import ba.parfemologija.service.core.models.article.ArticleUpdateRequest;
@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @Tag(name = "Article", description = "Article API")
@@ -29,8 +31,8 @@ public class ArticleRESTService {
 
     @Operation(description = "Create a new article entity")
     @PostMapping
-    public ResponseEntity<ArticleModel> create(@RequestBody ArticleCreateRequest request) throws Exception {
-        return articleService.create(request);
+    public ResponseEntity<ArticleModel> create(@RequestBody ArticleCreateRequest request, Principal principal) throws Exception {
+        return articleService.create(request, principal);
     }
 
     @Operation(description = "Update an existing article entity")

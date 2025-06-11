@@ -15,6 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ReviewService } from '../../../controller/review.service';
 import { ReviewCardComponent } from "../../../components/review-card/review-card.component";
 import { LoggedUserProfile } from '../../../model/user-model';
+import { CollectionService } from '../../../controller/collection.service';
+import { WishlistService } from '../../../controller/wishlist.service';
 
 
 @Component({
@@ -26,16 +28,19 @@ import { LoggedUserProfile } from '../../../model/user-model';
     class: 'max-body-width w-full flex flex-col md:flex-row md:m-auto justify-center md:space-x-2 items-start'
   }
 })
-export class FragranceOverviewComponent implements OnInit{
+export class FragranceOverviewComponent implements OnInit {
   protected fragrance: FragranceModel | null = null;
   protected fragranceBrand: Brand | null = null;
   protected fragranceReviews: FragranceReview[] = []
-  protected currentUser : LoggedUserProfile | null = null;
+  protected currentUser: LoggedUserProfile | null = null;
 
   protected sillageRatingStyle = {};
   protected logevityRatingStyle = {};
 
-  protected reviewForm : FormGroup;
+  protected reviewForm: FormGroup;
+
+  protected isInWishlist: Boolean = false;
+  protected isInCollection: Boolean = false;
 
   constructor(
     private router: Router,
@@ -44,14 +49,16 @@ export class FragranceOverviewComponent implements OnInit{
     private brandService: BrandService,
     private session: SessionService,
     private review: ReviewService,
-    private spinner : NgxSpinnerService,
+    private collectionService: CollectionService,
+    private wishlistService: WishlistService,
+    private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private fb : FormBuilder
-  ){
+    private fb: FormBuilder
+  ) {
     this.reviewForm = this.fb.group({
-      'head' : ['', Validators.required],
-      'body' : ['', Validators.required],
-      'rating' : ['5']
+      'head': ['', Validators.required],
+      'body': ['', Validators.required],
+      'rating': ['5']
     })
 
     this.session.fetchUserProfile().subscribe({
@@ -62,7 +69,6 @@ export class FragranceOverviewComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    // this.session.fetchUserProfile()
     this.spinner.show()
     this.fragranceService.getBySlug(
       this.route.snapshot.paramMap.get('slug') ?? ''
@@ -72,7 +78,7 @@ export class FragranceOverviewComponent implements OnInit{
         console.log(this.fragrance)
 
         this.brandService.getBrandById(this.fragrance.brandId).subscribe({
-          next: (response : any) => {
+          next: (response: any) => {
             this.spinner.hide()
             this.fragranceBrand = response as Brand
             this.sillageRatingStyle = {
@@ -95,6 +101,8 @@ export class FragranceOverviewComponent implements OnInit{
           }
         })
 
+        this.loadFragranceStatus(this.fragrance.slug)
+
         this.loadFragranceReviews()
       },
       error: (error: Error) => {
@@ -103,20 +111,84 @@ export class FragranceOverviewComponent implements OnInit{
     })
   }
 
-  loadFragranceReviews(){
+  loadFragranceReviews() {
     this.review.getReviewsForFragrance(this.fragrance!.id).subscribe({
-        next: (response: any) => {
-            this.fragranceReviews = response as FragranceReview[]
-            console.log(this.fragranceReviews)
-          },
-          error: (error: HttpErrorResponse) => {}
-        })
+      next: (response: any) => {
+        this.fragranceReviews = response as FragranceReview[]
+        console.log(this.fragranceReviews)
+      },
+      error: (error: HttpErrorResponse) => { }
+    })
   }
 
-  onAddReviewPressed(event: Event){
+  loadFragranceStatus(fragranceSlug: string) {
+    this.collectionService.checkCollectionStatus(fragranceSlug).subscribe({
+      next: (response: any) => {
+        this.isInCollection = response
+      },
+      error: (error: HttpErrorResponse) => { }
+    })
+
+    this.wishlistService.checkWishlistStatus(fragranceSlug).subscribe({
+      next: (response: any) => {
+        this.isInWishlist = response
+      },
+      error: (error: HttpErrorResponse) => { }
+    })
+  }
+
+  toggleFragranceWishlist(){
+    this.spinner.show()
+
+    if(this.isInWishlist){
+      this.wishlistService.removeFromWishlist(this.fragrance!.slug).subscribe({
+        next: (response : any) => {
+          this.spinner.hide()
+          this.toastr.success("Fragrance removed from wishlist!")
+          this.isInWishlist = false;
+        },
+        error: (error : HttpErrorResponse) => { }
+      })
+    } else {
+      this.wishlistService.addToWishlist(this.fragrance!.slug).subscribe({
+        next: (response : any) => {
+          this.spinner.hide()
+          this.toastr.success("Fragrance added to wishlist!")
+          this.isInWishlist = true;
+        },
+        error: (error : HttpErrorResponse) => { }
+      })
+    }
+  }
+
+  toggleFragranceCollection(){
+    this.spinner.show()
+
+    if(this.isInCollection){
+      this.collectionService.removeFromCollection(this.fragrance!.slug).subscribe({
+        next: (response : any) => {
+          this.spinner.hide()
+          this.toastr.success("Fragrance removed from collection!")
+          this.isInCollection = false;
+        },
+        error: (error : HttpErrorResponse) => { }
+      })
+    } else {
+      this.collectionService.addToCollection(this.fragrance!.slug).subscribe({
+        next: (response : any) => {
+          this.spinner.hide()
+          this.toastr.success("Fragrance added to collection!")
+          this.isInCollection = true;
+        },
+        error: (error : HttpErrorResponse) => { }
+      })
+    }
+  }
+
+  onAddReviewPressed(event: Event) {
     event.preventDefault()
 
-    if(!this.reviewForm.valid){
+    if (!this.reviewForm.valid) {
       this.toastr.error("Please fill in the form properly!");
     } else {
       this.spinner.show()
@@ -129,7 +201,7 @@ export class FragranceOverviewComponent implements OnInit{
           this.fragrance!.id
         )
       ).subscribe({
-        next: (response : any) => {
+        next: (response: any) => {
           this.spinner.hide()
           this.toastr.success("Review added!")
           this.loadFragranceReviews()
@@ -142,16 +214,16 @@ export class FragranceOverviewComponent implements OnInit{
     }
   }
 
-  onDeleteUserReviewPressed(reviewId: number){
+  onDeleteUserReviewPressed(reviewId: number) {
     this.spinner.show()
 
     this.review.deleteReviewById(reviewId).subscribe({
-      next: (response : any) => {
+      next: (response: any) => {
         this.spinner.hide()
         this.toastr.success("Review Deleted")
         this.loadFragranceReviews()
       },
-      error: (error : any) => {
+      error: (error: any) => {
         this.spinner.hide()
         this.toastr.error("Error while deleting review!")
       }

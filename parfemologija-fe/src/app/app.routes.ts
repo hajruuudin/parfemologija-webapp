@@ -9,6 +9,7 @@ import { BrowseFragrancesComponent } from './views/main/browse-fragrances/browse
 import { ProfileComponent } from './views/main/profile/profile.component';
 import { FragranceOverviewComponent } from './views/main/fragrance-overview/fragrance-overview.component';
 import { AddFragranceComponent } from './views/main/add-fragrance/add-fragrance.component';
+import { AddArticleComponent } from './views/main/add-article/add-article.component';
 
 export const routes: Routes = [
     {
@@ -44,6 +45,10 @@ export const routes: Routes = [
             {
                 path: 'articles',
                 component: BrowseArticlesComponent
+            },
+            {
+                path: 'article/add',
+                component: AddArticleComponent
             },
             {
                 path: 'fragrances',

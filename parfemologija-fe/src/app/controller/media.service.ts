@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -8,32 +8,27 @@ import { environment } from '../../environments/environment';
 })
 export class MediaService {
   private apiUrl = environment.apiUrl;
-  private IMGUR_UPLOAD_URL = 'https://api.imgur.com/3/image';
-  private IMGUR_CLIENT_ID = '733a6dd9987cf18';
+  private IMGBB_API_URL = 'https://api.imgbb.com/1/upload';
+  private IMGBB_API_KEY = '0402f2896b4fac3f53d2b3afba672554';
 
   constructor(private http: HttpClient) {}
 
   async uploadImage(file: File): Promise<string> {
     const base64 = await this.convertToBase64(file);
+    const imageBase64 = base64.split(',')[1];
 
-    const headers = new HttpHeaders({
-      Authorization: `Client-ID ${this.IMGUR_CLIENT_ID}`,
-      'Content-Type': 'application/json'
-    });
-
-    const body = {
-      image: base64.split(',')[1],
-      type: 'base64'
-    };
+    const body = new HttpParams()
+      .set('key', this.IMGBB_API_KEY)
+      .set('image', imageBase64)
+      .set('name', file.name)
 
     try {
       const response: any = await lastValueFrom(
-        this.http.post(this.IMGUR_UPLOAD_URL, body, { headers })
+        this.http.post(this.IMGBB_API_URL, body)
       );
-
-      return response.data.link;
+      return response.data.url;
     } catch (error) {
-      console.error('Image upload failed:', error);
+      console.error('ImgBB upload failed:', error);
       throw new Error('Upload failed');
     }
   }
@@ -47,9 +42,10 @@ export class MediaService {
     });
   }
 
-  storeImageUrlToDatabase(objectId: number, objectType: string, imgUrl: string){
-    return this.http.post(`${this.apiUrl}/media`, {objectType, objectId, imgUrl}, {
+  storeImageUrlToDatabase(objectId: number, mediaCategory: string, imageUrl: string){
+    return this.http.post(`${this.apiUrl}/media`, {mediaCategory, objectId, imageUrl}, {
       withCredentials: true
-    })
+    });
   }
 }
+
