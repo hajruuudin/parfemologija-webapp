@@ -1,13 +1,61 @@
 <app-headline [title]="'Browse All Articles'"></app-headline>
 
-<section class="">
-    <p class="text-2xl">WIP: This page will have the following:</p>
+<section class="w-full flex flex-row items-start space-x-4">
+  <!-- LEFT SIDEBAR: Filters -->
+  <aside
+    class="hidden md:flex w-3/12 flex-col bg-(--secondary-200) rounded-2xl p-4 mt-4 sticky top-5 space-y-4"
+  >
+    <h2 class="text-2xl font-bold">Filters</h2>
+    <!-- TODO: add actual filter controls -->
+    <p class="italic text-center">Filter options go here</p>
+  </aside>
 
-    <ul class="text-xl">
-        <li>- Search function for all articles based on text</li>
-        <li>- Paginated display of results for articles</li>
-        <li>- A left sidebar section for filtering the results</li>
-    </ul>
-    
-    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-pulse"><p style="color: white" > Loading.. </p></ngx-spinner>
+  <!-- MAIN: Search + Results -->
+  <section class="w-full md:w-9/12 flex flex-col items-center mb-4">
+    <app-search-bar
+      class="w-full sticky top-5 z-30"
+      (searchSubmitted)="getArticlesFiltered($event)"
+    ></app-search-bar>
+
+    <div
+      id="search-result-container"
+      class="w-full flex flex-wrap justify-start items-stretch mt-4"
+    >
+      <app-article-card
+        *ngFor="let article of searchResult"
+        [article]="article"
+        (click)="navigateToArticleOverview(article.id)"
+      ></app-article-card>
+    </div>
+
+    <div class="flex flex-row space-x-2 mt-6">
+      <button
+        class="px-4 py-2 bg-(--secondary-200) rounded-xl font-black hover:outline-2 transition-all"
+        (click)="onPrevClick()"
+      >
+        &lt;
+      </button>
+      <span
+        class="px-4 py-2 bg-(--secondary-200) rounded-xl font-black hover:outline-2 transition-all"
+      >
+        Page {{ currentPage + 1 }} of {{ lastPage }}
+      </span>
+      <button
+        class="px-4 py-2 bg-(--secondary-200) rounded-xl font-black hover:outline-2 transition-all"
+        (click)="onNextClick()"
+      >
+        &gt;
+      </button>
+    </div>
+  </section>
 </section>
+
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-pulse"
+  [fullScreen]="true"
+>
+  <p style="color: white">Loading…</p>
+</ngx-spinner>
