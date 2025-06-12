@@ -1,14 +1,53 @@
 <app-headline [title]="'Homepage'"></app-headline>
 
-<section class="homepage-body-container text-center">
-    <p class="text-2xl">WIP: This page will have the following:</p>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-pulse"
+  [fullScreen]="true">
+  <p style="color: white">Loading…</p>
+</ngx-spinner>
 
-    <ul class="text-xl">
-        <li>- A section for the most recent fragrance selling articles posted</li>
-        <li>- A section for a random assortmant of fragrances from the database</li>
-        <li>- A right sidebar section for recent fragrance reviews</li>
-        <li>- A left sidebar section for the users collections if he has any (two at most)</li>
-    </ul>
-    
-    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-pulse" [fullScreen] = "true"><p style="color: white" > Loading.. </p></ngx-spinner>
-</section>
+<div class="flex flex-wrap mt-6">
+  <!-- LEFT SIDEBAR: User Collections -->
+  <aside class="w-full lg:w-1/4 p-4">
+    <app-headline [title]="'Your Collections'"></app-headline>
+    <ng-container *ngIf="userCollections.length; else noCollections">
+      <app-fragrance-card
+        *ngFor="let f of userCollections"
+        [fragrance]="f">
+      </app-fragrance-card>
+    </ng-container>
+    <ng-template #noCollections>
+      <p class="italic">You haven’t collected anything yet.</p>
+    </ng-template>
+  </aside>
+
+  <!-- MAIN: Articles & Fragrances -->
+  <main class="w-full lg:w-1/2 p-4">
+    <app-headline [title]="'Recent Articles'"></app-headline>
+    <app-article-card
+      *ngFor="let a of recentArticles"
+      [article]="a">
+    </app-article-card>
+
+    <div class="mt-8">
+      <app-headline [title]="'Random Fragrances'"></app-headline>
+      <app-fragrance-card
+        *ngFor="let f of randomFragrances"
+        [fragrance]="f">
+      </app-fragrance-card>
+    </div>
+  </main>
+
+  <!-- RIGHT SIDEBAR: Recent Reviews -->
+  <aside class="w-full lg:w-1/4 p-4">
+    <app-headline [title]="'Recent Reviews'"></app-headline>
+    <app-review-card
+      *ngFor="let r of recentReviews"
+      [review]="r"
+      [isUserReview]="false">
+    </app-review-card>
+  </aside>
+</div>
