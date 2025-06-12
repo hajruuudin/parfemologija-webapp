@@ -9,7 +9,7 @@ import { SearchBarComponent } from '../../../components/search-bar/search-bar.co
 import { ArticleCardComponent } from '../../../components/article-card/article-card.component';
 
 import { ArticleService } from '../../../controller/article.service';
-import { ArticleModel } from '../../../model/article.model';
+import { ArticleModel } from '../../../model/article-model';
 
 @Component({
   standalone: true,
@@ -43,9 +43,7 @@ export class BrowseArticlesComponent implements OnInit {
     private router: Router
   ) {
     // stub for future filters
-    this.filters = this.fb.group({
-      // e.g. 'category': [''], 'tag': ['']
-    });
+    this.filters = this.fb.group({});
   }
 
   ngOnInit(): void {

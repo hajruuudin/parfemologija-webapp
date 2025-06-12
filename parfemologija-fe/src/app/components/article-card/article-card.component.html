@@ -1,0 +1,8 @@
+<img
+  *ngIf="article.imageUrl"
+  [src]="article.imageUrl"
+  [alt]="article.articleTitle"
+  class="rounded-t-2xl w-full h-40 object-cover"
+/>
+<h3 class="mt-2 text-xl font-bold line-clamp-2">{{ article.articleTitle }}</h3>
+<p class="mt-1 text-gray-600">{{ article.articlePrice | currency }}</p>
