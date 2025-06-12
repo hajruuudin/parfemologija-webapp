@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { CurrencyPipe, NgIf } from '@angular/common';
 import { ArticleModel } from '../../model/article-model';
 
 @Component({
   standalone: true,
   selector: 'app-article-card',
-  imports: [NgIf],
+  imports: [NgIf, CurrencyPipe],
   templateUrl: './article-card.component.html',
   styleUrls: ['./article-card.component.css'],
   host: {

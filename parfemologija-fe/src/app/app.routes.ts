@@ -10,6 +10,7 @@ import { ProfileComponent } from './views/main/profile/profile.component';
 import { FragranceOverviewComponent } from './views/main/fragrance-overview/fragrance-overview.component';
 import { AddFragranceComponent } from './views/main/add-fragrance/add-fragrance.component';
 import { AddArticleComponent } from './views/main/add-article/add-article.component';
+import { ArticleOverviewComponent } from './views/main/article-overview/article-overview.component';
 
 export const routes: Routes = [
     {
@@ -45,6 +46,10 @@ export const routes: Routes = [
             {
                 path: 'articles',
                 component: BrowseArticlesComponent
+            },
+            {
+                path: 'articles/:id',
+                component: ArticleOverviewComponent
             },
             {
                 path: 'article/add',

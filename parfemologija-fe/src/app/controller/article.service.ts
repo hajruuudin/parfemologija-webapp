@@ -11,7 +11,7 @@ interface PagedResponse<T> {
 
 @Injectable({ providedIn: 'root' })
 export class ArticleService {
-  private apiUrl = `${environment.apiUrl}/articles`;
+  private apiUrl = `${environment.apiUrl}/article`;
 
   constructor(private http: HttpClient) {}
 
