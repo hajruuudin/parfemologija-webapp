@@ -22,11 +22,12 @@ public class ArticleRESTService {
     ArticleService articleService;
 
     @Operation(description = "Get paginated articles from the database")
-    @GetMapping(value = "{pageNumber}/{pageSize}")
+    @GetMapping()
     public ResponseEntity<Page<ArticleModel>> find(
-            @PathVariable Integer pageNumber,
-            @PathVariable Integer pageSize){
-        return articleService.find(PageRequest.of(pageNumber, pageSize));
+            @RequestParam(name = "search", required = false) String search,
+            @RequestParam(name = "page", required = true) Integer pageNumber,
+            @RequestParam(name = "size", required = true) Integer pageSize){
+        return articleService.find(PageRequest.of(pageNumber, pageSize), search);
     }
 
     @Operation(description = "Create a new article entity")

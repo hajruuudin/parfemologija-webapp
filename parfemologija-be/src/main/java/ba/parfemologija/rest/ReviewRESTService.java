@@ -36,4 +36,10 @@ public class ReviewRESTService {
     public ResponseEntity<Boolean> delete(@RequestParam(name = "reviewId", required = true) Long reviewId, Principal principal){
         return reviewService.delete(reviewId, principal);
     }
+
+    @Operation(description = "Get N recent reviews from the database")
+    @GetMapping(value = "recent")
+    public ResponseEntity<List<ReviewModel>> getRecent(@RequestParam(name = "n", required = true) Integer number){
+        return reviewService.getRecent(number);
+    }
 }

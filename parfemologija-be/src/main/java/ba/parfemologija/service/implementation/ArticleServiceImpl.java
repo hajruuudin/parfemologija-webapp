@@ -33,9 +33,9 @@ public class ArticleServiceImpl implements ArticleService {
     LookupImageService lookupImageService;
 
     @Override
-    public ResponseEntity<Page<ArticleModel>> find(PageRequest request) {
+    public ResponseEntity<Page<ArticleModel>> find(PageRequest request, String search) {
         try {
-            Page<ArticleEntity> pagedArticleResponse = articleDAO.findAll(request);
+            Page<ArticleEntity> pagedArticleResponse = articleDAO.findAll(request, search);
 
             List<ArticleModel> articleModelList = articleMapper.entitiesToDtos(pagedArticleResponse.getContent());
 

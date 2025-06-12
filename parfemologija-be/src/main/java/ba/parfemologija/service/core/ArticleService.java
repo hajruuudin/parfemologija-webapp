@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import java.security.Principal;
 
 public interface ArticleService {
-    ResponseEntity<Page<ArticleModel>> find(PageRequest request);
+    ResponseEntity<Page<ArticleModel>> find(PageRequest request, String search);
     ResponseEntity<ArticleModel> create(ArticleCreateRequest request, Principal principal) throws Exception;
     ResponseEntity<ArticleModel> update(ArticleUpdateRequest update);
     ResponseEntity<Boolean> deleteById(Long id);

@@ -11,4 +11,5 @@ public interface ReviewService {
     ResponseEntity<ReviewModel> create(Principal principal, ReviewCreateModel request);
     ResponseEntity<List<ReviewModel>> findAll(Long fragranceId);
     ResponseEntity<Boolean> delete(Long reviewId, Principal principal);
+    ResponseEntity<List<ReviewModel>> getRecent(Integer number);
 }

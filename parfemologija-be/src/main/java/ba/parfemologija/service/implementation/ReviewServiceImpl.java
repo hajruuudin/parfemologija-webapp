@@ -9,6 +9,7 @@ import ba.parfemologija.service.core.models.review.ReviewCreateModel;
 import ba.parfemologija.service.core.models.review.ReviewModel;
 import ba.parfemologija.service.implementation.mapper.ReviewMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -81,6 +82,21 @@ public class ReviewServiceImpl implements ReviewService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Review Delete Error");
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<ReviewModel>> getRecent(Integer number) {
+        try {
+            PageRequest pageRequest = PageRequest.of(0, number);
+            List<FragranceReviewEntity> entities = reviewDAO.findRecent(pageRequest);
+
+            List<ReviewModel> models = reviewMapper.entitiesToDtos(entities);
+
+            return ResponseEntity.ok(models);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Recent Review ERROR");
         }
     }
 }
