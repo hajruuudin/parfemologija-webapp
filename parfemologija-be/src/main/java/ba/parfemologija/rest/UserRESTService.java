@@ -29,6 +29,12 @@ public class UserRESTService {
         return userService.find(PageRequest.of(0, 10));
     }
 
+    @Operation(description = "Get a user from the database by ID")
+    @GetMapping(value = "{id}")
+    public ResponseEntity<UserModel> findById(@PathVariable Long id){
+        return  userService.findById(id);
+    }
+
     @Operation(description = "Get a users profile from the database using session information")
     @GetMapping(value = "profile")
     public ResponseEntity<LoggedUserModel> findUserProfile(Principal principal){

@@ -8,10 +8,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 
 import java.security.Principal;
+import java.util.List;
 
 public interface ArticleService {
     ResponseEntity<Page<ArticleModel>> find(PageRequest request, String search);
     ResponseEntity<ArticleModel> create(ArticleCreateRequest request, Principal principal) throws Exception;
+    ResponseEntity<ArticleModel> findById(Long id);
+    ResponseEntity<List<ArticleModel>> findByUser(Principal principal);
     ResponseEntity<ArticleModel> update(ArticleUpdateRequest update);
     ResponseEntity<Boolean> deleteById(Long id);
 }

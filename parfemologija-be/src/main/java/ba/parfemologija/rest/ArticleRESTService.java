@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @Tag(name = "Article", description = "Article API")
@@ -28,6 +29,18 @@ public class ArticleRESTService {
             @RequestParam(name = "page", required = true) Integer pageNumber,
             @RequestParam(name = "size", required = true) Integer pageSize){
         return articleService.find(PageRequest.of(pageNumber, pageSize), search);
+    }
+
+    @Operation(description = "Find an article based on its ID")
+    @GetMapping(value = "{id}")
+    public ResponseEntity<ArticleModel> findById(@PathVariable Long id){
+        return articleService.findById(id);
+    }
+
+    @Operation(description = "Find a users articles")
+    @GetMapping(value = "user")
+    public ResponseEntity<List<ArticleModel>> findByUser(Principal principal){
+        return articleService.findByUser(principal);
     }
 
     @Operation(description = "Create a new article entity")
