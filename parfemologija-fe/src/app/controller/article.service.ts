@@ -51,4 +51,10 @@ export class ArticleService {
       withCredentials: true
     })
   }
+
+  deleteArticle(articelId: number){
+    return this.http.delete(`${this.apiUrl}/${articelId}`, {
+      withCredentials: true
+    })
+  }
 }

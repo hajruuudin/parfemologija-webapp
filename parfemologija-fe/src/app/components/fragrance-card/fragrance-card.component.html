@@ -2,10 +2,10 @@
     <img src="{{this.fragrance?.thumbnailImageUrl}}" class="w-full h-full object-cover object-center rounded-t-xl group-hover:scale-110 transition-all">
 </div>
 
-<div class="w-full flex flex-col justify-start items-center p-2">
-    <h2 class="font-bold text-xl text-center">{{this.fragrance?.officialName}}</h2>
-    <span>{{this.fragrance?.gender | gender}}</span>
-    <span>{{this.fragrance!.typeId | type }}</span>
+<div class="w-full flex flex-col h-auto justify-center items-center p-2">
+    <h2 class="font-bold text-2xl text-center">{{this.fragrance?.officialName}}</h2>
+    <span class="bg-(--primary-200) px-2 py-1 rounded-xl font-black tracking-wider">{{this.fragrance?.gender | gender}}</span>
+    <span class="italic">{{this.fragrance!.typeId | type }}</span>
 </div>
 
 

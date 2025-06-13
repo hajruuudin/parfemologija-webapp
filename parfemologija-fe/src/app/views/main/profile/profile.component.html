@@ -29,6 +29,12 @@
             >Add A New Fragrance
             </button>
         </div>
+
+        <button
+            class="px-8 py-2 mt-2 bg-(--secondary-200) m-auto font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+            (click)="logout()"
+        >Logout
+        </button>
     </div>
     <div id="profile-picture" class="hidden md:flex md:w-1/2 flex-col justify-center items-end">
         <img src="/assets/icons/USER.png" alt="User" class="bg-(--primary-200) aspect-square rounded-full w-1/2">
@@ -45,7 +51,27 @@
                 (click)="navigateToFragranceOverview(fragrance.slug)"
             ></app-fragrance-card-small>
         </div>
-        <h2 *ngIf="this.userWishlist.length == 0" class="text-2xl font-semibold text-center">Your wishlist is currently empty!</h2>
+        <h2 *ngIf="this.userWishlist.length == 0" class="w-full text-2xl font-semibold text-center">Your wishlist is currently empty!</h2>
+    </section>
+
+        <section id="articles" class="w-full bg-(--primary-400) rounded-2xl h-auto min-h-32 flex flex-col justify-start items-start overflow-x-auto">
+        <h2 class="text-2xl font-bold py-2 px-4">Your Articles</h2>
+        <div *ngIf="this.userArticles.length != 0" id="article-container" class="grow flex flex-row justify-start px-4 pb-4 space-x-4">
+            <div *ngFor="let article of userArticles" class="w-full flex flex-col items-center justify-center">
+                <app-article-card-small
+                    class="w-full"
+                    [article]="article"
+                    (click)="navigateToArticleOverview(article.id)"
+                >
+                </app-article-card-small>
+                <button
+                    class="px-4 py-2 bg-red-900 font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
+                    (click)="deleteArticle(article.id)">
+                    Delete Article
+                </button>
+            </div>
+        </div>
+        <h2 *ngIf="this.userArticles.length == 0" class="w-full grow text-2xl font-semibold text-center">Your do not have any active articles!</h2>
     </section>
 
     
@@ -58,21 +84,10 @@
                 (click)="navigateToFragranceOverview(fragrance.slug)"
             ></app-fragrance-card-small>
         </div>
-        <h2 *ngIf="this.userCollection.length == 0" class="text-2xl font-semibold text-center">You'r collection is currently empty!</h2>
+        <h2 *ngIf="this.userCollection.length == 0" class="w-full text-2xl font-semibold text-center">You'r collection is currently empty!</h2>
     </section>
 
-    <section id="articles" class="w-full bg-(--secondary-200) rounded-2xl h-auto min-h-32 flex flex-col justify-start items-start overflow-x-auto">
-        <h2 class="text-2xl font-bold py-2 px-4">Your Articles</h2>
-        <div *ngIf="this.userArticles.length != 0" id="article-container" class="grow flex flex-row justify-start px-4 pb-4">
-            <app-article-card
-                *ngFor="let article of userArticles"
-                [article]="article"
-                (click)="navigateToArticleOverview(article.id)"
-            >
-            </app-article-card>
-        </div>
-        <h2 *ngIf="this.userArticles.length == 0" class="w-full grow text-2xl font-semibold text-center">Your do not have any active articles!</h2>
-    </section>
+
 
 </section>
 

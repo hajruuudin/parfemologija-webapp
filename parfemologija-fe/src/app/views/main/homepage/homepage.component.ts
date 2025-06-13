@@ -26,7 +26,6 @@ import { ArticleCardSmallComponent } from "../../../components/article-card-smal
   selector: 'app-homepage',
   imports: [
     HeadlineComponent,
-    ArticleCardComponent,
     ReviewCardComponent,
     NgxSpinnerComponent,
     NgIf,
