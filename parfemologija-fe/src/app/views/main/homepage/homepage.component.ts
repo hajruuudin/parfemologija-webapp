@@ -76,7 +76,7 @@ export class HomepageComponent implements OnInit {
       }
     );
 
-    this.reviewService.getRecentFragranceReviews(5).subscribe(
+    this.reviewService.getRecentFragranceReviews(3).subscribe(
       (list: FragranceReview[]) => {
         this.recentReviews = list;
       }
