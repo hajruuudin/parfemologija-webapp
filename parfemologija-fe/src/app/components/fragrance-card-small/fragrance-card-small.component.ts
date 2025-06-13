@@ -9,7 +9,7 @@ import { GenderPipe } from '../../pipes/gender.pipe';
   templateUrl: './fragrance-card-small.component.html',
   styleUrl: './fragrance-card-small.component.css',
   host: {
-    class: 'w-64 h-auto flex flex-col justify-start items-center bg-(--secondary-300) hover:bg-(--primary-200) scale-95 rounded-xl outline-(--secondary-500) outline-2 hover:outline-4 transition-all group'
+    class: 'min-w-72 min-h-80 h-auto flex flex-col justify-start items-center bg-(--secondary-300) hover:bg-(--primary-200) scale-95 rounded-xl outline-(--secondary-500) outline-2 hover:outline-4 transition-all group'
   }
 })
 export class FragranceCardSmallComponent {

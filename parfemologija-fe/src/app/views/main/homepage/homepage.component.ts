@@ -18,6 +18,8 @@ import { ArticleModel }      from '../../../model/article-model';
 import { FragranceModel }    from '../../../model/fragrance-model';
 import { FragranceReview }   from '../../../model/review-model';
 import { LoggedUserProfile } from '../../../model/user-model';
+import { FragranceCardSmallComponent } from "../../../components/fragrance-card-small/fragrance-card-small.component";
+import { ArticleCardSmallComponent } from "../../../components/article-card-small/article-card-small.component";
 
 @Component({
   standalone: true,
@@ -25,12 +27,13 @@ import { LoggedUserProfile } from '../../../model/user-model';
   imports: [
     HeadlineComponent,
     ArticleCardComponent,
-    FragranceCardComponent,
     ReviewCardComponent,
     NgxSpinnerComponent,
     NgIf,
-    NgFor
-  ],
+    NgFor,
+    FragranceCardSmallComponent,
+    ArticleCardSmallComponent
+],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   host: { class: 'max-body-width m-auto w-full flex flex-col mt-5' }
@@ -74,14 +77,12 @@ export class HomepageComponent implements OnInit {
       }
     );
 
-    // 3) Load recent reviews
     this.reviewService.getRecentFragranceReviews(5).subscribe(
       (list: FragranceReview[]) => {
         this.recentReviews = list;
       }
     );
 
-    // 4) Load user collections (max two)
     this.session.fetchUserProfile().subscribe(
       (user: LoggedUserProfile) => {
         this.currentUser = user;
@@ -89,10 +90,10 @@ export class HomepageComponent implements OnInit {
           (colls: FragranceModel[]) => {
             this.userCollections = colls.slice(0, 2);
           },
-          (err: any) => console.error(err)
+          (err: any) => {}
         );
       },
-      (err: any) => console.error(err)
+      (err: any) => {}
     );
   }
 }

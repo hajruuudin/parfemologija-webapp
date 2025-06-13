@@ -11,13 +11,17 @@
 
 <div class="flex flex-wrap mt-6">
   <!-- LEFT SIDEBAR: User Collections -->
-  <aside class="w-full lg:w-1/4 p-4">
-    <app-headline [title]="'Your Collections'"></app-headline>
+  <aside class="w-full lg:w-1/4 p-4 flex flex-col items-center">
+    <h2 class="text-3xl text-center font-semibold">Your Collection</h2>
+    <h3 class="text-xl text-center">Take a peak and refresh your collection!</h3>
     <ng-container *ngIf="userCollections.length; else noCollections">
-      <app-fragrance-card
-        *ngFor="let f of userCollections"
-        [fragrance]="f">
-      </app-fragrance-card>
+      <div class="w-full flex flex-row lg:flex-col items-center justify-center">
+        <app-fragrance-card-small
+          *ngFor="let f of userCollections"
+          [fragrance]="f">
+        </app-fragrance-card-small>
+      </div>
+      
     </ng-container>
     <ng-template #noCollections>
       <p class="italic">You haven’t collected anything yet.</p>
@@ -26,24 +30,32 @@
 
   <!-- MAIN: Articles & Fragrances -->
   <main class="w-full lg:w-1/2 p-4">
-    <app-headline [title]="'Recent Articles'"></app-headline>
-    <app-article-card
-      *ngFor="let a of recentArticles"
-      [article]="a">
-    </app-article-card>
+    <h2 class="text-3xl text-center font-semibold">New Articles</h2>
+    <h3 class="text-xl text-center">Make sure not to miss these new articles</h3>
+    <div class="w-full flex flex-row justify-start items-center overflow-x-auto">
+      <app-article-card-small
+        *ngFor="let a of recentArticles"
+        [article]="a">
+      </app-article-card-small>
+    </div>
+    
 
     <div class="mt-8">
-      <app-headline [title]="'Random Fragrances'"></app-headline>
-      <app-fragrance-card
-        *ngFor="let f of randomFragrances"
-        [fragrance]="f">
-      </app-fragrance-card>
+      <h2 class="text-3xl text-center font-semibold">Random Fragrances</h2>
+      <h3 class="text-xl text-center">Here are some random fragrances to fuel your scent-information</h3>
+      <div class="w-full flex flex-row justify-start items-center overflow-x-auto">
+        <app-fragrance-card-small
+          *ngFor="let f of randomFragrances"
+          [fragrance]="f">
+        </app-fragrance-card-small>
+      </div>
     </div>
   </main>
 
   <!-- RIGHT SIDEBAR: Recent Reviews -->
   <aside class="w-full lg:w-1/4 p-4">
-    <app-headline [title]="'Recent Reviews'"></app-headline>
+    <h2 class="text-3xl text-center font-semibold">Recent Reviews</h2>
+    <h3 class="text-xl text-center">Here are some of the recent reviews posted on the site</h3>
     <app-review-card
       *ngFor="let r of recentReviews"
       [review]="r"
