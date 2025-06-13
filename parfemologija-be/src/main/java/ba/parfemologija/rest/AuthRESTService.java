@@ -39,4 +39,10 @@ public class AuthRESTService {
         System.out.println("Checking for name:" + username);
         return authService.checkUsername(username);
     }
+
+    @Operation(description = "Log a user out of his session")
+    @PostMapping("/logout")
+    public ResponseEntity<Map<String, Object>> logout(HttpServletResponse response) {
+        return authService.logout(response);
+    }
 }

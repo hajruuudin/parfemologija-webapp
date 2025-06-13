@@ -35,10 +35,11 @@ public class AuthServiceImpl implements AuthService {
         UserEntity userEntity = userMapper.dtoToEntity(userCreateRequest);
 
         try{
-            /* Hashing the password */
+            /* Hashing the password and setting admin status to false */
             String hashed_password = passwordEncoder.encode(userEntity.getPassword());
             userEntity.setPassword(hashed_password);
-            /* Hashing the password */
+            userEntity.setIsAdmin(false);
+            /* Hashing the password and setting admin status to false */
 
             userDAO.save(userEntity);
             return userMapper.entityToDto(userEntity);
@@ -69,6 +70,26 @@ public class AuthServiceImpl implements AuthService {
         } else {
             throw new Exception("Error while making cookie");
         }
+    }
+
+    @Override
+    public ResponseEntity<Map<String, Object>> logout(HttpServletResponse response) {
+        Cookie deleteCookie = new Cookie(JWT_COOKIE_NAME, null);
+        deleteCookie.setPath("/");
+        deleteCookie.setHttpOnly(true);
+        deleteCookie.setMaxAge(0);
+
+        String appEnv = System.getenv("APP_ENVIRONMENT");
+        StringBuilder cookieHeader = new StringBuilder(deleteCookie.getName() + "=; Path=" + deleteCookie.getPath() + "; HttpOnly; Max-Age=0");
+
+        if ("production".equals(appEnv)) {
+            cookieHeader.append("; Secure");
+            cookieHeader.append("; SameSite=None");
+        }
+
+        response.setHeader("Set-Cookie", cookieHeader.toString());
+
+        return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
     }
 
     @Override
