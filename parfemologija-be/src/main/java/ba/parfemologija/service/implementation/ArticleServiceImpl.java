@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.rmi.NoSuchObjectException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -72,6 +73,45 @@ public class ArticleServiceImpl implements ArticleService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Article creation error");
+        }
+    }
+
+    @Override
+    public ResponseEntity<ArticleModel> findById(Long id) {
+        try{
+            Optional<ArticleEntity> entity = articleDAO.findById(id);
+
+            if(entity.isPresent()){
+                ArticleModel model = articleMapper.entityToDto(entity.get());
+
+                lookupImageService.lookupThumbnailImage(model, ObjectType.ARTICLE, model.getId());
+
+                return ResponseEntity.ok(model);
+            } else {
+                return null;
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Article Find ERROR");
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<ArticleModel>> findByUser(Principal principal) {
+        try{
+            UserEntity user = userDAO.findByUsername(principal.getName());
+
+            List<ArticleEntity> articleEntities = articleDAO.findByUserId(user.getId());
+
+            List<ArticleModel> articleModels = articleMapper.entitiesToDtos(articleEntities);
+
+            for(ArticleModel articleModel : articleModels){
+                lookupImageService.lookupThumbnailImage(articleModel, ObjectType.ARTICLE, articleModel.getId());
+            }
+            return ResponseEntity.ok(articleModels);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Article User Find ERROR");
         }
     }
 

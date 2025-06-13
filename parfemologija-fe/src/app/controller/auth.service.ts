@@ -12,15 +12,19 @@ export class AuthService {
   constructor(private http : HttpClient) { }
 
   register(request : UserCreate){
-    console.log(this.apiUrl)
     return this.http.post(`${this.apiUrl}/auth/register`, request, {
       withCredentials: true
     })
   }
 
   login(request : UserLogin){
-    console.log(this.apiUrl)
     return this.http.post(`${this.apiUrl}/auth/login`, request, {
+      withCredentials: true
+    })
+  }
+
+  logout(){
+    return this.http.post(`${this.apiUrl}/auth/logout`, {}, {
       withCredentials: true
     })
   }

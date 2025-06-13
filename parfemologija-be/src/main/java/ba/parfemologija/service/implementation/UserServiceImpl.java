@@ -55,6 +55,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ResponseEntity<UserModel> findById(Long id) {
+        try{
+            Optional<UserEntity> userEntity = userDAO.findById(id);
+
+            if(userEntity.isPresent()){
+                UserModel userModel = userMapper.entityToDto(userEntity.get());
+
+                return ResponseEntity.ok(userModel);
+            } else {
+                return null;
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new RuntimeException("User Find ERROR");
+        }
+    }
+
+    @Override
     public ResponseEntity<UserModel> create(UserCreate request) throws Exception {
         try {
             UserEntity entity = userMapper.dtoToEntity(request);

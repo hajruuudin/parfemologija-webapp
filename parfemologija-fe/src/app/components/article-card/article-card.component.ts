@@ -5,11 +5,11 @@ import { ArticleModel } from '../../model/article-model';
 @Component({
   standalone: true,
   selector: 'app-article-card',
-  imports: [NgIf, CurrencyPipe],
+  imports: [CurrencyPipe],
   templateUrl: './article-card.component.html',
   styleUrls: ['./article-card.component.css'],
   host: {
-    class: 'max-w-xs flex flex-col bg-white rounded-2xl shadow p-4 m-2 cursor-pointer hover:shadow-lg transition'
+    class: 'w-full sm:w-1/2 lg:w-1/3 h-auto flex flex-col bg-(--primary-200) rounded-2xl shadow p-4 scale-95 cursor-pointer hover:shadow-lg transition'
   }
 })
 export class ArticleCardComponent {

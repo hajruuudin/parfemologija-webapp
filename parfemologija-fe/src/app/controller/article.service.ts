@@ -45,4 +45,16 @@ export class ArticleService {
       withCredentials: true
     });
   }
+
+  getUserArticles(){
+    return this.http.get<ArticleModel[]>(`${this.apiUrl}/user`, {
+      withCredentials: true
+    })
+  }
+
+  deleteArticle(articelId: number){
+    return this.http.delete(`${this.apiUrl}/${articelId}`, {
+      withCredentials: true
+    })
+  }
 }

@@ -14,6 +14,7 @@ import java.security.Principal;
 public interface UserService {
     ResponseEntity<Page<UserModel>> find(PageRequest request);
     ResponseEntity<LoggedUserModel> findUserProfile(Principal principal);
+    ResponseEntity<UserModel> findById(Long id);
     ResponseEntity<UserModel> create(UserCreate request) throws Exception;
     ResponseEntity<UserModel> update(UserUpdate request);
     ResponseEntity<Boolean> deleteById(Long id);
