@@ -10,10 +10,13 @@ import { CollectionService } from '../../../controller/collection.service';
 import { response } from 'express';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FragranceCardSmallComponent } from "../../../components/fragrance-card-small/fragrance-card-small.component";
+import { ArticleService } from '../../../controller/article.service';
+import { ArticleModel } from '../../../model/article-model';
+import { ArticleCardComponent } from "../../../components/article-card/article-card.component";
 
 @Component({
   selector: 'app-profile',
-  imports: [NgFor, NgIf, NgxSpinnerModule, FragranceCardSmallComponent],
+  imports: [NgFor, NgIf, NgxSpinnerModule, FragranceCardSmallComponent, ArticleCardComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
   host: {
@@ -24,12 +27,13 @@ export class ProfileComponent implements OnInit{
   protected currentUser : LoggedUserProfile | null = null;
   protected userWishlist : FragranceModel[] = []
   protected userCollection : FragranceModel[] = []
-  protected userArticles : {}[] = []
+  protected userArticles : ArticleModel[] = []
 
   constructor(
     private sessionService: SessionService,
     private wishlistService: WishlistService,
     private collectionService: CollectionService,
+    private articleService: ArticleService,
     private spinner: NgxSpinnerService,
     private router: Router
   ){ }
@@ -59,6 +63,13 @@ export class ProfileComponent implements OnInit{
         this.userCollection = response
       }
     })
+
+    this.articleService.getUserArticles().subscribe({
+      next: (response : ArticleModel[]) => {
+        this.userArticles = response
+      },
+      error: (error: HttpErrorResponse) => {}
+    })
   }
 
   navigateToAddFragrancePage(){
@@ -71,5 +82,9 @@ export class ProfileComponent implements OnInit{
 
   navigateToFragranceOverview(fragranceSlug: string){
     this.router.navigate([`/fragrances/${fragranceSlug}`])
+  }
+
+  navigateToArticleOverview(articelId: number){
+    this.router.navigate([`/articles/${articelId}`])
   }
 }

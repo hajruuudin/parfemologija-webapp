@@ -107,7 +107,7 @@ export class AddArticleComponent {
         },
         error: (error: HttpErrorResponse) => {
           this.spinner.hide()
-          this.toastr.error("Error while adding fragrance")
+          this.toastr.error("Error while adding article")
         }
       })
     }

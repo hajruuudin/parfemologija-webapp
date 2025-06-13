@@ -64,7 +64,12 @@
     <section id="articles" class="w-full bg-(--secondary-200) rounded-2xl h-auto min-h-32 flex flex-col justify-start items-start overflow-x-auto">
         <h2 class="text-2xl font-bold py-2 px-4">Your Articles</h2>
         <div *ngIf="this.userArticles.length != 0" id="article-container" class="grow flex flex-row justify-start px-4 pb-4">
-            
+            <app-article-card
+                *ngFor="let article of userArticles"
+                [article]="article"
+                (click)="navigateToArticleOverview(article.id)"
+            >
+            </app-article-card>
         </div>
         <h2 *ngIf="this.userArticles.length == 0" class="w-full grow text-2xl font-semibold text-center">Your do not have any active articles!</h2>
     </section>

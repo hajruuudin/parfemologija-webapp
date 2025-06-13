@@ -5,13 +5,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ArticleService } from '../../../controller/article.service';
 import { ArticleModel }   from '../../../model/article-model';
+import { GenderPipe } from '../../../pipes/gender.pipe';
+import { UserModel } from '../../../model/user-model';
+import { UserService } from '../../../controller/user.service';
+import { error } from 'console';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   standalone: true,
   selector: 'app-article-overview',
   imports: [
-    NgIf,
-    NgFor,
+    GenderPipe,
     CurrencyPipe,
     NgxSpinnerComponent
   ],
@@ -23,11 +27,13 @@ import { ArticleModel }   from '../../../model/article-model';
 })
 export class ArticleOverviewComponent implements OnInit {
   article: ArticleModel | null = null;
+  articleUser: UserModel | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private articleService: ArticleService,
+    private userService: UserService,
     private spinner: NgxSpinnerService
   ) {}
 
@@ -38,6 +44,13 @@ export class ArticleOverviewComponent implements OnInit {
       this.articleService.getArticleById(id).subscribe(
         (res: ArticleModel) => {
           this.article = res;
+
+          this.userService.getUserById(this.article.userId).subscribe({
+            next: (response : UserModel) => {
+              this.articleUser = response
+            },
+            error: (error : HttpErrorResponse) => {}
+          })
         },
         (err: any) => {
           console.error(err);

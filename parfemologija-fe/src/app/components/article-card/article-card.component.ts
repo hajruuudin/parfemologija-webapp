@@ -9,7 +9,7 @@ import { ArticleModel } from '../../model/article-model';
   templateUrl: './article-card.component.html',
   styleUrls: ['./article-card.component.css'],
   host: {
-    class: 'max-w-xs flex flex-col bg-white rounded-2xl shadow p-4 m-2 cursor-pointer hover:shadow-lg transition'
+    class: 'max-w-xs flex flex-col bg-(--primary-200) rounded-2xl shadow p-4 m-2 cursor-pointer hover:shadow-lg transition'
   }
 })
 export class ArticleCardComponent {

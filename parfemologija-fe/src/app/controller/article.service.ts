@@ -45,4 +45,10 @@ export class ArticleService {
       withCredentials: true
     });
   }
+
+  getUserArticles(){
+    return this.http.get<ArticleModel[]>(`${this.apiUrl}/user`, {
+      withCredentials: true
+    })
+  }
 }

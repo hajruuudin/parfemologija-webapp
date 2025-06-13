@@ -1,41 +1,30 @@
-<section
-  id="left-part"
-  class="w-full md:w-1/2 flex flex-col mt-10 items-center justify-center md:sticky md:top-5"
->
-  <img
-    *ngIf="article?.imageUrl"
-    [src]="article.imageUrl"
-    alt="Article image"
-    class="rounded-2xl w-6/8"
-  />
+<section id="left-part" class="w-full md:w-1/2 flex flex-col mt-10 items-center justify-center md:sticky md:top-5">
+  <img [src]="article?.thumbnailImageUrl" alt="Article image" class="rounded-2xl w-6/8" />
+  
+</section>
+
+<section id="right-part" class="w-full md:w-1/2 mt-10 px-8 flex flex-col justify-start items-stretch">
   <h1 class="text-3xl font-bold mt-2">{{ article?.articleTitle }}</h1>
-  <h2 class="text-2xl mt-2">{{ article?.articleType }}</h2>
+  <h2 class="text-2xl mt-2">{{ article?.articleType | gender }}</h2>
   <p class="text-xl mt-2 font-semibold">
     Price: {{ article?.articlePrice | currency }}
   </p>
 
+  <h2 class="text-2xl text-start font-bold mt-4">Description</h2>
+  <p class="text-xl">{{ article?.articleDescription }}</p>
+
+  <h2 class="text-2xl text-start font-bold mt-6">Contact Info</h2>
+  <p class="text-xl"><strong>Posted By:</strong> {{ articleUser?.name }} {{ articleUser?.surname}}</p>
+  <p class="text-xl"><strong>Article Location:</strong> {{ articleUser?.location }}</p>
+  <p class="text-xl"><strong>Contact Phone:</strong> {{ articleUser?.phoneNumber }}</p>
+
   <button
     class="px-4 py-2 mt-4 bg-(--secondary-400) font-black rounded-xl tracking-wider hover:outline-2 hover:outline-(--primary-400) transition-all"
-    (click)="goBack()"
-  >
+    (click)="goBack()">
     Back to Articles
   </button>
 </section>
 
-<section
-  id="right-part"
-  class="w-full md:w-1/2 mt-10 px-8 flex flex-col justify-start items-stretch"
->
-  <h2 class="text-2xl text-start font-bold">Description</h2>
-  <p>{{ article?.articleDescription }}</p>
-</section>
-
-<ngx-spinner
-  bdColor="rgba(0, 0, 0, 0.8)"
-  size="medium"
-  color="#fff"
-  type="ball-pulse"
-  [fullScreen]="true"
->
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-pulse" [fullScreen]="true">
   <p style="color: white">Loading…</p>
 </ngx-spinner>
