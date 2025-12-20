@@ -6,12 +6,8 @@ Web Application that serves as an online local fragrance selling & information s
 - Monorepo structure for the entire project
 - Online Postrgres database via Supabase
 
-### Running Deployed:
-The application is depployed as of 15th June 2025 on https://parfemologija.onrender.com
-
 ### Running Local:
-To run the application localy, the backend and frontend need to be individually hosted on ports 4200 for the FE and 8081 for the BE. For the database, the online deployed database is on Supabase, however, for running locally the database DDL is present within the repository and can be used to run a local copy of the application.
-
+To run the application localy, the backend and frontend need to be individually hosted on ports 4200 for the FE and 8081 for the BE. For the database for running locally the database DDL is present within the repository and can be used to run a local copy of the application.
 
 # Versions Rundown
 
